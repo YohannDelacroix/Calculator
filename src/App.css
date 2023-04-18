@@ -1,0 +1,62 @@
+main{
+  display: grid;
+  place-items: center;
+  align-content: center;
+  background-color: black;
+  height: 100vh;
+}
+
+
+.screen{
+  background-color: rgba(91, 87, 89, 0.44);
+  grid-column: 1 / 6;
+  grid-row: 1 / 2;
+
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  font-size: 36px;
+  padding: 5px;
+  color: white
+}
+
+.keyboard{
+  display: grid;
+  grid-template-columns: repeat(5, 75px);
+  grid-template-rows: repeat(6, 75px);
+  place-items: center;
+  justify-items: stretch;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+  gap: 5px;
+
+  padding: 20px;
+}
+
+
+.keyboard-button{
+  background-color: rgba(84, 77, 85, 0.83);
+  display: grid;
+  place-items: center;
+
+  padding: 5px;
+  border: thin solid black;
+  color: white;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.keyboard-button:hover{
+  background-color: rgba(84, 77, 85, 0.43);
+}
+
+.equal{
+  grid-row-start: 5;
+  grid-row-end: 7;
+  grid-column-start: 5;
+  grid-column-end: 6;
+
+}
+
+
