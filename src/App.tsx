@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Screen from './components/Pane/Screen';
 import Operand from './components/Button/Operand';
 import Operator from './components/Button/Operator';
+import StackContext, { StackProvider, useStackContext } from './StackContext';
 
 function App() {
+
+    const {operatorStack, setOperatorStack, operandStack, setOperandStack} = useStackContext();
+
+
+    //Test
+    useEffect( () => {
+      setTimeout(() => {
+        console.log("Operator Stack :", operatorStack);
+        setOperatorStack(["One", "Two"]);
+        console.log("Operand stack", operandStack);
+        setOperandStack(["Thrree", "Four"]);
+      }, 1500)
+    }, [])
+
 
     const something = () => {
       return 5.6
     }
 
+
     return (
       <main>
-        
-        
 
         <section className="keyboard">
           <section className="screen">
@@ -64,6 +78,7 @@ function App() {
         </section>
         
       </main>
+     
     );
 }
 
