@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react'
 import "../../App.css"
 
+interface ButtonProp{
+    value: string
+    onClick: () => void
+}
 
-const Button = ({value}: {value: string}) => {
+
+const Button = ({value, onClick}: ButtonProp) => {
 
     return (
         <>
             {
-                value === "=" ? <div className="keyboard-button equal">
+                value === "=" ? <div className="keyboard-button equal" onClick={onClick}>
                     {value}
-                </div> : <div className="keyboard-button">
+                </div> : <div className="keyboard-button" onClick={onClick}>
                     {value}
                 </div>
             }

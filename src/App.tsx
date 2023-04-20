@@ -11,17 +11,7 @@ function App() {
     const {operatorStack, setOperatorStack, operandStack, setOperandStack} = useStackContext();
 
 
-    //Test
-    useEffect( () => {
-      setTimeout(() => {
-        console.log("Operator Stack :", operatorStack);
-        setOperatorStack(["One", "Two"]);
-        console.log("Operand stack", operandStack);
-        setOperandStack(["Thrree", "Four"]);
-      }, 1500)
-    }, [])
-
-
+    
     const something = () => {
       return 5.6
     }

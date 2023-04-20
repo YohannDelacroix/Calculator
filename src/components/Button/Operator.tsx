@@ -1,6 +1,8 @@
 import {Token} from "./Token"
 import React from 'react'
 import Button from "./Button"
+import { useStackContext } from '../../StackContext'
+import { push, getLastIn, pop } from './StackMethods'
 
 interface PropOperator{
   notation: string;
@@ -8,9 +10,14 @@ interface PropOperator{
 }
 
 const Operator = ({notation, execute}: PropOperator) => {
+  const {operatorStack, setOperatorStack, operandStack, setOperandStack} = useStackContext();
+
+  const clickOperator = () => {
+    push(operatorStack, setOperatorStack, notation)
+  }
 
   return (
-    <Button value={notation} /> 
+    <Button value={notation} onClick={clickOperator}/> 
   )
 }
 
