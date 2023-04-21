@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import Screen from './components/Pane/Screen';
 import Operand from './components/Button/Operand';
 import Operator from './components/Button/Operator';
-import StackContext, { StackProvider, useStackContext } from './StackContext';
+import { useStackContext } from './StackContext';
 
 function App() {
 
