@@ -2,7 +2,7 @@ import React from 'react'
 import {Token} from "./Token"
 import Button from "./Button"
 import { useStackContext } from '../../StackContext'
-import { push, getLastIn, pop } from './StackMethods'
+import { push, getLastIn, pop } from '../Stack/StackMethods'
 
 interface PropOperand{
   value: string;

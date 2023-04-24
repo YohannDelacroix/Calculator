@@ -2,7 +2,6 @@ import { StackProvider, useStackContext } from "../../StackContext"
 import { useEffect, useState } from "react"
 import { fireEvent, getByTestId, render, screen, cleanup, waitFor } from "@testing-library/react"
 import * as STACK from "./StackMethods";
-import '@testing-library/jest-dom/extend-expect';
 
 describe('TESTING STACK PROVIDER -------------------------------------- ', () => {
 

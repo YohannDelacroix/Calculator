@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Screen from './components/Pane/Screen';
 import Operand from './components/Button/Operand';
@@ -15,17 +15,20 @@ function App() {
       return 5.6
     }
 
+    
+    useEffect(() => {
+      console.log(eval('3**2+4'))
+    })
 
     return (
       <main>
-
         <section className="keyboard">
           <section className="screen">
            <Screen value={846} />
           </section>
           <Operand value="<-" execute={something} />
-          <Operand value="(" execute={something} />
-          <Operand value=")" execute={something} />
+          <Operator notation="(" execute={something} />
+          <Operator notation=")" execute={something} />
 
           <Operator notation="mod" execute={something} />
           <Operand value="pi" execute={something} />
@@ -43,7 +46,7 @@ function App() {
           <Operand value="6" execute={something} />
 
           <Operator notation="*" execute={something} />
-          <Operator notation="pw" execute={something} />
+          <Operator notation="^" execute={something} />
 
 
           

@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react'
 import "../../App.css"
+import { TbMath } from "react-icons/tb"
+import { TbMathPi } from "react-icons/tb"
+import { FiDelete } from "react-icons/fi"
+
 
 interface ButtonProp{
     value: string
@@ -10,15 +14,17 @@ interface ButtonProp{
 const Button = ({value, onClick}: ButtonProp) => {
 
     return (
-        <>
-            {
-                value === "=" ? <div className="keyboard-button equal" onClick={onClick}>
-                    {value}
-                </div> : <div className="keyboard-button" onClick={onClick}>
-                    {value}
-                </div>
-            }
-        </>
+        <div className={value === "=" ? "keyboard-button equal" : "keyboard-button"} onClick={onClick}>
+        
+        {value === "sq" 
+            ? <TbMath /> 
+            : value === "pi"
+            ? <TbMathPi />
+            : value === "<-"
+            ? <FiDelete />
+            : value}
+        
+        </div>
     )
 }
 
