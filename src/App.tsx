@@ -1,24 +1,42 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import Screen from './components/Pane/Screen';
-import Operand from './components/Button/Operand';
-import Operator from './components/Button/Operator';
 import { useStackContext } from './StackContext';
+import Button from './components/Button/Button';
+import * as STACK from "./components/Stack/StackMethods"
+import * as PSTIN from "./hooks/Postfix_Infix"
 
 function App() {
 
-    const {operatorStack, setOperatorStack, operandStack, setOperandStack} = useStackContext();
+    const commands = [
+      "<-","(",")","mod","pi",
+      "7","8","9","+","sq",
+      "4","5","6","*","^",
+      "1","2","3","-","=",
+      "0",",","%","/"
+    ]
 
+    const {stack, setStack, operandStack, setOperandStack} = useStackContext();
 
-    
-    const something = () => {
-      return 5.6
+    const pushIntoOperandStack = (value: string) => {
+      STACK.push(operandStack, setOperandStack, [value])
     }
 
-    
-    useEffect(() => {
-      console.log(eval('3**2+4'))
-    })
+
+
+    const handleOperator = (value: string) => {
+      let number = STACK.toString(operandStack)
+      STACK.emptyStack(operandStack, setOperandStack)
+      STACK.push(stack, setStack, [number, value])
+    }
+
+    const evaluate = () => {
+      let number = STACK.toString(operandStack)
+      STACK.emptyStack(operandStack, setOperandStack)
+      STACK.push(stack, setStack, [number])
+    }
+
+  
 
     return (
       <main>
@@ -26,7 +44,10 @@ function App() {
           <section className="screen">
            <Screen value={846} />
           </section>
-          <Operand value="<-" execute={something} />
+
+          {
+            /*
+              <Operand value="<-" execute={something} />
           <Operator notation="(" execute={something} />
           <Operator notation=")" execute={something} />
 
@@ -63,8 +84,19 @@ function App() {
           <Operator notation="/" execute={something} />
 
 
-          <Operator notation="=" execute={something} />
+          <Button value="=" onClick={evaluate} />
+
+            */
+          }
           
+          {
+            commands.map( c => {
+              if(c === "=") return <Button value={c} key={c} onClick={evaluate} />
+              else if(c === "<-") return <Button value={c} key={c} onClick={evaluate} />
+              else if(PSTIN.isOperator(c)) return <Button value={c} key={c} onClick={handleOperator} />
+              else return <Button value={c} key={c} onClick={pushIntoOperandStack} />
+            })
+          }
           
          
         </section>

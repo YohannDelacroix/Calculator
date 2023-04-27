@@ -10,19 +10,15 @@ const operatorList: any[] = [
 ]
 
 
-export const usePostfix = (infix: string[]) => {
+
+//convert a infix expression into postfix
+export const toPostfix = (infix: string[]): string[] => {
     let postfix: string[] = [];
     let operator: string[] = [];
-
-    const trace = () => {
-        console.log("Postfix : ", postfix)
-        console.log("Operator ", operator)
-    }
 
     for(let i = 0; i < infix.length; i++){
         if(isOperand(infix[i])){
             postfix.push(infix[i])
-            //trace();
         }
         else if(isOperator(infix[i])){
             if(infix[i] === "("){
@@ -38,7 +34,6 @@ export const usePostfix = (infix: string[]) => {
             else{
                 if(operator.length === 0){
                     operator.push(infix[i])
-                    //trace()
                 }
                 else{
                     while(operator.length > 0 && hasPriorityOn(operator[operator.length-1], infix[i])){
@@ -47,7 +42,6 @@ export const usePostfix = (infix: string[]) => {
                     }
 
                     operator.push(infix[i])
-                    //trace()
                 }
             }
         }
@@ -57,7 +51,6 @@ export const usePostfix = (infix: string[]) => {
     while(operator.length > 0){
         let lastOperator: string | undefined = operator.pop()
         if(lastOperator !== undefined) postfix.push(lastOperator)
-        //trace()
     }
     
     

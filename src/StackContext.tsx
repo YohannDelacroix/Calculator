@@ -6,6 +6,9 @@ export type StackContent = {
     setOperatorStack: Dispatch<SetStateAction<string[]>>
     operandStack: string[];
     setOperandStack: Dispatch<SetStateAction<string[]>>
+
+    stack: string[];
+    setStack: Dispatch<SetStateAction<string[]>>
 }
 
 
@@ -13,21 +16,25 @@ export const StackContext = createContext<StackContent>({
     operatorStack: [],
     setOperatorStack: () => {},
     operandStack: [],
-    setOperandStack: () => {}
+    setOperandStack: () => {},
+    stack: [],
+    setStack: () => {}
 })
 
 
 export const StackProvider = ({children}: any) => {
     const [operatorStack, setOperatorStack] = useState<string[]>([])
     const [operandStack, setOperandStack] = useState<string[]>([])
+    const [stack, setStack] = useState<string[]>([])
+
 
     useEffect( () => {
-        console.log("OPERATOR ", operatorStack)
-        console.log("OPERAND", operandStack)
-    }, [operandStack, operatorStack])
+        console.log("STACK : ", stack)
+        console.log("OPRD stack", operandStack)
+    }, [stack, operandStack])
 
     return(
-        <StackContext.Provider value={{operatorStack, setOperatorStack, operandStack, setOperandStack}}>
+        <StackContext.Provider value={{operatorStack, setOperatorStack, operandStack, setOperandStack, stack, setStack}}>
             {children}
         </StackContext.Provider>
     )

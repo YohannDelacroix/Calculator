@@ -7,14 +7,14 @@ import { FiDelete } from "react-icons/fi"
 
 interface ButtonProp{
     value: string
-    onClick: () => void
+    onClick: (value: string) => void
 }
 
 
 const Button = ({value, onClick}: ButtonProp) => {
 
     return (
-        <div className={value === "=" ? "keyboard-button equal" : "keyboard-button"} onClick={onClick}>
+        <div className={value === "=" ? "keyboard-button equal" : "keyboard-button"} onClick={() => onClick(value)}>
         
         {value === "sq" 
             ? <TbMath /> 

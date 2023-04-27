@@ -9,8 +9,8 @@ describe('TESTING STACK PROVIDER -------------------------------------- ', () =>
         const {operandStack, setOperandStack, operatorStack, setOperatorStack} = useStackContext();
 
         useEffect(() => {
-            STACK.push(operandStack, setOperandStack, "5")
-            STACK.push(operatorStack, setOperatorStack, "+")
+            STACK.push(operandStack, setOperandStack, ["5"])
+            STACK.push(operatorStack, setOperatorStack, ["+"])
         }, [])
 
 
@@ -97,6 +97,14 @@ describe('TESTING STACK PROVIDER -------------------------------------- ', () =>
             await waitFor(() => {
                 expect(getByTestId('testPopOperand')).toBeInTheDocument()
             })
+        })
+
+    })
+
+    describe('Stack methods', () => {
+        it("should return a valid string format", () => {
+            expect(STACK.toString(["4","6","5",".","5"])).toBe("465.5")
+            expect(STACK.toString([])).toBe("")
         })
     })
 })
