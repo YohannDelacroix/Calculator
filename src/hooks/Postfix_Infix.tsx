@@ -13,6 +13,8 @@ const operatorList: any[] = [
 
 //convert a infix expression into postfix
 export const toPostfix = (infix: string[]): string[] => {
+    console.log("INFIX : ", infix)
+
     let postfix: string[] = [];
     let operator: string[] = [];
 
