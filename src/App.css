@@ -47,7 +47,7 @@ main{
   cursor: pointer;
 }
 
-.keyboard-button:hover{
+.keyboard-button:enabled:hover{
   background-color: rgba(84, 77, 85, 0.43);
 }
 
@@ -60,3 +60,7 @@ main{
 }
 
 
+button:disabled{
+  opacity: 0.5;
+  cursor: default;
+}

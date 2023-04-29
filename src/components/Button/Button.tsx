@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import "../../App.css"
 import { TbMath } from "react-icons/tb"
 import { TbMathPi } from "react-icons/tb"
@@ -13,8 +13,11 @@ interface ButtonProp{
 
 const Button = ({value, onClick}: ButtonProp) => {
 
+    const disabledCommands = ["sq", "^", "mod", "<-", "pi"]
+
     return (
-        <div className={value === "=" ? "keyboard-button equal" : "keyboard-button"} onClick={() => onClick(value)}>
+
+        <button className={value === "=" ? "keyboard-button equal" : "keyboard-button"} onClick={() => onClick(value)} disabled={disabledCommands.includes(value)}>
         
         {value === "sq" 
             ? <TbMath /> 
@@ -24,7 +27,7 @@ const Button = ({value, onClick}: ButtonProp) => {
             ? <FiDelete />
             : value}
         
-        </div>
+        </button>
     )
 }
 
