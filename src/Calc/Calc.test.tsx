@@ -1,5 +1,5 @@
 import exp from "constants"
-import { toPostfix, isOperand, isOperator, hasPriorityOn, evalPostfix } from "./Postfix_Infix"
+import { toPostfix, isOperand, isOperator, hasPriorityOn, evalPostfix } from "./Calc"
 
 describe("Testing infix-postfix methods", () => {
     test("isOperand should return true", () => {

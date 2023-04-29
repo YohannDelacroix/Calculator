@@ -3,7 +3,7 @@ import './App.css';
 import Screen from './components/Screen/Screen';
 import Button from './components/Button/Button';
 import * as STACK from "./components/Stack/StackMethods"
-import * as PSTIN from "./hooks/Postfix_Infix"
+import * as PSTIN from "./Calc/Calc"
 import { StackReducer, stackActionKind } from './components/Stack/StackReducer';
 
 
@@ -50,6 +50,30 @@ function App() {
       dispatchStack({type: stackActionKind.EVALUATE, payload: []})
     }
 
+    const back = () => {
+      let newStack = [...stack.stack]
+      let last = newStack.pop()
+
+      console.log(newStack, last)
+
+      
+
+      if(last == undefined) {
+        console.error("Nothing to delete")
+        return
+      }
+      
+
+      dispatchStack({type: stackActionKind.EMPTY, payload: []})
+      
+      if(last.length > 1){
+        dispatchStack({type: stackActionKind.PUSH, payload: [...newStack, last.substring(0, last.length-1)]})
+      }
+      else{
+        dispatchStack({type: stackActionKind.PUSH, payload: [...newStack]})
+      }
+    }
+
   
     return (
       <main>
@@ -61,8 +85,7 @@ function App() {
           {
             commands.map( c => {
               if(c === "=") return <Button value={c} key={c} onClick={evaluate} />
-              else if(c === "<-") return <Button value={c} key={c} onClick={evaluate} />
-              else if(PSTIN.isOperator(c)) return <Button value={c} key={c} onClick={pushIntoStack} />
+              else if(c === "<-") return <Button value={c} key={c} onClick={back} />
               else return <Button value={c} key={c} onClick={pushIntoStack} />
             })
           }

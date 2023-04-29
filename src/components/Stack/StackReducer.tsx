@@ -1,10 +1,12 @@
-import { evalPostfix, toPostfix } from "../../hooks/Postfix_Infix";
+import { evalPostfix, toPostfix } from "../../Calc/Calc";
+import * as STACK from "./StackMethods"
 
 export enum stackActionKind {
     PUSH = 'PUSH',
     POP = 'POP',
     EMPTY = 'EMPTY',
-    EVALUATE = 'EVALUATE'
+    EVALUATE = 'EVALUATE',
+    BACK = 'BACK'
 }
 
 interface stackAction{
