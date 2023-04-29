@@ -24,6 +24,9 @@ function App() {
       console.log("Stack: ", stack);
     }, [stack])
 
+
+
+    
     const pushIntoStack = (value: string) => {
 
       if(PSTIN.isOperand(value)){

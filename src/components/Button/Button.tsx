@@ -13,7 +13,7 @@ interface ButtonProp{
 
 const Button = ({value, onClick}: ButtonProp) => {
 
-    const disabledCommands = ["sq", "^", "mod", "<-", "pi"]
+    const disabledCommands = ["sq", "^", "mod", "<-", "pi", "%"]
 
     return (
 
