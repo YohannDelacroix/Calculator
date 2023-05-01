@@ -10,7 +10,7 @@ import { StackReducer, stackActionKind } from './components/Stack/StackReducer';
 function App() {
 
     const commands = [
-      "<-","(",")","mod","pi",
+      "<-","(",")","pi","AC",
       "7","8","9","+","sq",
       "4","5","6","*","^",
       "1","2","3","-","=",
@@ -74,6 +74,10 @@ function App() {
       }
     }
 
+    const handleAC = () => {
+      dispatchStack({type: stackActionKind.EMPTY, payload: []})
+    }
+
   
     return (
       <main>
@@ -85,6 +89,7 @@ function App() {
           {
             commands.map( c => {
               if(c === "=") return <Button value={c} key={c} onClick={evaluate} />
+              else if(c === "AC") return <Button value={c} key={c} onClick={handleAC} />
               else if(c === "<-") return <Button value={c} key={c} onClick={back} />
               else return <Button value={c} key={c} onClick={pushIntoStack} />
             })
