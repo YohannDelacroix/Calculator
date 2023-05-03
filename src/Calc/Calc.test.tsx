@@ -54,6 +54,9 @@ describe("Testing infix-postfix methods", () => {
 
         let postfix3: string[] = toPostfix(["(","5","+","4",")","*","(","9","/","8",")"])
         expect(postfix3).toStrictEqual(["5","4","+","9","8","/","*"])
+
+        let postfix4: string[] = toPostfix(["-4","*","(", "-6", "+", "3",")"])
+        expect(postfix4).toStrictEqual(["-4","-6","3","+","*"])
     })
 
     it("should evaluate a postfix expression", () => {
@@ -62,6 +65,9 @@ describe("Testing infix-postfix methods", () => {
 
         let postfix2: string[] = ["5","5","+","10","6","-","/"]
         expect(evalPostfix(postfix2)).toBe("2.5")
+
+        let postfix4: string[] = ["-4","-6","3","+","*"]
+        expect(evalPostfix(postfix4)).toBe("12")
     })
     
 })

@@ -7,7 +7,16 @@ export const push = (stack: string[], setStack: Dispatch<SetStateAction<string[]
     setStack([...stack, ...value])
 }
 
+
+//Get the second value from the beginning of the end to the left
+export const getSecondFromEnd = (stack: string[]) => {
+    if(stack.length < 2) return ""
+    return stack[stack.length-2]
+}
+
+//Get the last in stack
 export const getLastIn = (stack: string[]) => {
+    if(stack.length == 0) return ""
     return stack[stack.length-1]
 }
 

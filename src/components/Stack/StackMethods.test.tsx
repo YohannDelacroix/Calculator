@@ -106,5 +106,11 @@ describe('TESTING STACK PROVIDER -------------------------------------- ', () =>
             expect(STACK.toString(["4","6","5",".","5"])).toBe("465.5")
             expect(STACK.toString([])).toBe("")
         })
+
+        it("get second from end", () => {
+            expect(STACK.getSecondFromEnd(["4","+","9"])).toBe("+")
+            expect(STACK.getSecondFromEnd(["5"])).toBe("")
+            expect(STACK.getSecondFromEnd([])).toBe("")
+        })
     })
 })

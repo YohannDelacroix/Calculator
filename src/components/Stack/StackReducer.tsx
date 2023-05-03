@@ -23,8 +23,10 @@ export const StackReducer = (state: stackState, action: stackAction) => {
     const { type, payload } = action
     switch(type){
         case stackActionKind.PUSH:
+            console.log("PUSH")
             return {...state, stack: [...state.stack, ...payload]}
         case stackActionKind.POP:
+            if(STACK.getLastIn(state.stack) === payload[0])
             state.stack.pop()
             return {...state, stack: [...state.stack]}
         case stackActionKind.EMPTY:

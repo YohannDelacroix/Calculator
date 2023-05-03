@@ -21,7 +21,7 @@ function App() {
     const [stack, dispatchStack] = useReducer(StackReducer, { stack: []})
 
     useEffect( () => {
-      console.log("Stack: ", stack);
+      console.log("Stack: ", stack.stack);
     }, [stack])
 
 
@@ -30,13 +30,19 @@ function App() {
     const pushIntoStack = (value: string) => {
 
       if(PSTIN.isOperand(value)){
+        let lastIn = STACK.getLastIn(stack.stack)
 
-        if(stack.stack.length == 0 || PSTIN.isOperator(STACK.getLastIn(stack.stack))){
+        if(lastIn === "-" && (PSTIN.isOperator(STACK.getSecondFromEnd(stack.stack)) || STACK.getSecondFromEnd(stack.stack) === "")){
+          let completeValue = STACK.getLastIn(stack.stack) + value
+          dispatchStack({type: stackActionKind.POP, payload: [STACK.getLastIn(stack.stack)]})
+          dispatchStack({type: stackActionKind.PUSH, payload: [completeValue]})
+        }
+        else if(stack.stack.length == 0 || PSTIN.isOperator(lastIn)){
           dispatchStack({type: stackActionKind.PUSH, payload: [value]})
         }
         else{ //The last in stack is an operand
           let completeValue = STACK.getLastIn(stack.stack) + value
-          dispatchStack({type: stackActionKind.POP, payload: []})
+          dispatchStack({type: stackActionKind.POP, payload: [STACK.getLastIn(stack.stack)]})
           dispatchStack({type: stackActionKind.PUSH, payload: [completeValue]})
         } 
 
@@ -50,20 +56,16 @@ function App() {
       dispatchStack({type: stackActionKind.EVALUATE, payload: []})
     }
 
+
+    //Back button, delete 1 character exactly
     const back = () => {
       let newStack = [...stack.stack]
       let last = newStack.pop()
-
-      console.log(newStack, last)
-
-      
 
       if(last == undefined) {
         console.error("Nothing to delete")
         return
       }
-      
-
       dispatchStack({type: stackActionKind.EMPTY, payload: []})
       
       if(last.length > 1){
@@ -74,6 +76,8 @@ function App() {
       }
     }
 
+
+    //AC button - reset the stack
     const handleAC = () => {
       dispatchStack({type: stackActionKind.EMPTY, payload: []})
     }

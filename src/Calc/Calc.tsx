@@ -11,6 +11,13 @@ const operatorList: any[] = [
 
 
 
+//Check if the infix exp is valid 
+export const isValidInfixExp = (infix: string[]) => {
+    //To do
+}
+
+
+
 //convert a infix expression into postfix
 export const toPostfix = (infix: string[]): string[] => {
     console.log("INFIX : ", infix)
@@ -74,15 +81,15 @@ export const evalPostfix = (postfix: string[]) => {
             let nb1 = stack.pop()
             let nb2 = stack.pop()
 
-            trace()
+            //trace()
 
             let nm1: number;
             let nm2: number;
             if(nb1 != undefined && nb2 != undefined){
-                nm1 = parseInt(nb1)
-                nm2 = parseInt(nb2)
+                nm1 = parseFloat(nb1)
+                nm2 = parseFloat(nb2)
 
-                console.log("nm1, nm2", nm1, nm2)
+                //console.log("nm1, nm2", nm1, nm2)
             }
             else throw new Error("Undefined nb1 and/or nb2")
 
@@ -94,14 +101,14 @@ export const evalPostfix = (postfix: string[]) => {
             else if(token === "^") result = Math.pow(nm1, nm2)
             else console.log("ERROR: Unknow operator")        
         
-            console.log("result, ", result)    
+            //console.log("result, ", result)    
 
             let result_str: string = result.toString()
             stack.push(result_str)
         }
     })
 
-    console.log("Final: ", stack)
+    //console.log("Final: ", stack)
     return stack[0]
 }
 
