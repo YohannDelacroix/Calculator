@@ -13,7 +13,25 @@ const operatorList: any[] = [
 
 //Check if the infix exp is valid 
 export const isValidInfixExp = (infix: string[]) => {
-    //To do
+    let openingCount: number = 0;
+    let closingCount: number = 0;
+
+    for(let i = 0; i < infix.length; i++){
+        if(isOperator(infix[i])){
+            if(i == infix.length - 1 && infix[i] !== ")") return false   //If the last is an operator , invalid expression
+            if(i == 0 && infix[i] !== "-" && infix[i] !== "(") return false   //If the first is an operator, (except - and ) ) , invalid
+            if(i != infix.length -1){
+                if(isOperator(infix[i+1]) && infix[i+1] !== "-" && infix[i+1] !== "(" && infix[i] !== ")") return false //Two consecutive operators
+            }
+         }
+
+         if(infix[i] === "(") openingCount += 1
+         if(infix[i] === ")") closingCount += 1
+    }
+
+    if(openingCount !== closingCount) return false //Parenthesis not correctly opened andor closed
+
+    return true
 }
 
 

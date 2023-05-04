@@ -53,7 +53,16 @@ function App() {
     }
 
     const evaluate = () => {
-      dispatchStack({type: stackActionKind.EVALUATE, payload: []})
+
+      let valid: boolean = PSTIN.isValidInfixExp(stack.stack)
+      console.log("VALID ? :;:", valid)
+      if(!valid) {
+        dispatchStack({type: stackActionKind.EMPTY, payload: []})
+        dispatchStack({type: stackActionKind.PUSH, payload: ["ERROR"]})
+      }
+      else dispatchStack({type: stackActionKind.EVALUATE, payload: []})
+
+      
     }
 
 
