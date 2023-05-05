@@ -75,6 +75,7 @@ describe("Testing infix-postfix methods", () => {
         expect(isValidInfixExp(infix1)).toBeFalsy()
         expect(isValidInfixExp( ["*","5","+","3"] )).toBeFalsy()
         expect(isValidInfixExp(["(", "(", "5","+","3",")"])).toBeFalsy()
+        expect(isValidInfixExp(["ERROR56"])).toBeFalsy()
     })
 
     it("should accept a valid expression", () => {

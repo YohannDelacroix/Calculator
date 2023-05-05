@@ -25,6 +25,8 @@ export const isValidInfixExp = (infix: string[]) => {
             }
          }
 
+         if(!isOperator(infix[i]) && !isOperand(infix[i])) return false
+
          if(infix[i] === "(") openingCount += 1
          if(infix[i] === ")") closingCount += 1
     }
