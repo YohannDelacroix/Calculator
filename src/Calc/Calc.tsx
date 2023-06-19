@@ -38,7 +38,7 @@ export const isValidInfixExp = (infix: string[]) => {
 
 
 
-//convert a infix expression into postfix
+//convert a infix expression into postfix expression
 export const toPostfix = (infix: string[]): string[] => {
     console.log("INFIX : ", infix)
 
