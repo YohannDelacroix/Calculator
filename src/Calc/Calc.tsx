@@ -20,7 +20,7 @@ export const isValidInfixExp = (infix: string[]) => {
         if(isOperator(infix[i])){
             if(i == infix.length - 1 && infix[i] !== ")") return false   //If the last is an operator , invalid expression
             if(i == 0 && infix[i] !== "-" && infix[i] !== "(") return false   //If the first is an operator, (except - and ) ) , invalid
-            if(i != infix.length -1){
+            if(i !== infix.length -1){
                 if(isOperator(infix[i+1]) && infix[i+1] !== "-" && infix[i+1] !== "(" && infix[i] !== ")") return false //Two consecutive operators
             }
          }
@@ -135,7 +135,7 @@ export const evalPostfix = (postfix: string[]) => {
 
 //Is the character an operand ?
 export const isOperand = (c: string) => {
-    return !isNaN(+c)
+    return !isNaN(+c) || c === "."
 }
 
 //Is the character an operator ?

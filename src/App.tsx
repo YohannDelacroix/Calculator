@@ -14,7 +14,7 @@ function App() {
       "7","8","9","+","sq",
       "4","5","6","*","^",
       "1","2","3","-","=",
-      "0",",","%","/"
+      "0",".","%","/"
     ]
 
 
@@ -52,8 +52,9 @@ function App() {
       }
     }
 
-    const evaluate = () => {
 
+    //Evaluate an expression entered by the user
+    const evaluate = () => {
       let valid: boolean = PSTIN.isValidInfixExp(stack.stack)
       console.log("VALID ? :;:", valid)
       if(!valid) {
@@ -61,8 +62,6 @@ function App() {
         dispatchStack({type: stackActionKind.PUSH, payload: ["ERROR"]})
       }
       else dispatchStack({type: stackActionKind.EVALUATE, payload: []})
-
-      
     }
 
 
@@ -71,7 +70,7 @@ function App() {
       let newStack = [...stack.stack]
       let last = newStack.pop()
 
-      if(last == undefined) {
+      if(last === undefined) {
         console.error("Nothing to delete")
         return
       }
