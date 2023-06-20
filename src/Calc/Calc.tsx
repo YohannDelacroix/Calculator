@@ -135,7 +135,7 @@ export const evalPostfix = (postfix: string[]) => {
 
 //Is the character an operand ?
 export const isOperand = (c: string) => {
-    return !isNaN(+c) || c === "."
+    return !isNaN(+c) || c === "." || c === "pi"
 }
 
 //Is the character an operator ?

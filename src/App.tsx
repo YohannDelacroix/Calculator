@@ -32,6 +32,9 @@ function App() {
       if(PSTIN.isOperand(value)){
         let lastIn = STACK.getLastIn(stack.stack)
 
+        if(value === "pi") value = "3.14"
+        
+
         if(lastIn === "-" && (PSTIN.isOperator(STACK.getSecondFromEnd(stack.stack)) || STACK.getSecondFromEnd(stack.stack) === "")){
           let completeValue = STACK.getLastIn(stack.stack) + value
           dispatchStack({type: stackActionKind.POP, payload: [STACK.getLastIn(stack.stack)]})

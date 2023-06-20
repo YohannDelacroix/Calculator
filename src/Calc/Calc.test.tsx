@@ -14,6 +14,7 @@ describe("Testing infix-postfix methods", () => {
         expect(isOperand("8")).toBeTruthy()
         expect(isOperand("9")).toBeTruthy()
         expect(isOperand(".")).toBeTruthy()
+        expect(isOperand("pi")).toBeTruthy()
     })
 
     test("isOperand should return false", () => {
