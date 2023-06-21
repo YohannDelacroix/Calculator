@@ -26,7 +26,6 @@ function App() {
 
 
 
-    
     const pushIntoStack = (value: string) => {
 
       if(PSTIN.isOperand(value)){
@@ -56,10 +55,10 @@ function App() {
     }
 
 
-    //Evaluate an expression entered by the user
+    //Evaluate an expression typed by the user
     const evaluate = () => {
       let valid: boolean = PSTIN.isValidInfixExp(stack.stack)
-      console.log("VALID ? :;:", valid)
+      console.log("is VALID EXP ?", valid)
       if(!valid) {
         dispatchStack({type: stackActionKind.EMPTY, payload: []})
         dispatchStack({type: stackActionKind.PUSH, payload: ["ERROR"]})

@@ -5,8 +5,9 @@ const operatorList: any[] = [
     {op:"-", priority:1},
     {op:"*", priority:2},
     {op:"/", priority:2},
+    {op:"%", priority:3},
     {op:"^", priority:3},
-    {op:"sq", priority:3}
+    {op:"sq", priority:3},
 ]
 
 
@@ -18,8 +19,18 @@ export const isValidInfixExp = (infix: string[]) => {
 
     for(let i = 0; i < infix.length; i++){
         if(isOperator(infix[i])){
-            if(i == infix.length - 1 && infix[i] !== ")") return false   //If the last is an operator , invalid expression
-            if(i == 0 && infix[i] !== "-" && infix[i] !== "(") return false   //If the first is an operator, (except - and ) ) , invalid
+
+            if(i == infix.length - 1 && infix[i] !== ")") 
+            {
+                console.log("ERROR: If the last is an operator , invalid expression")
+                return false   //If the last is an operator , invalid expression
+            }
+
+            if(i == 0 && infix[i] !== "-" && infix[i] !== "(") {
+                console.log("ERROR: First typed is an operator")
+                return false   //If the first is an operator, (except - and ) ) , invalid
+            } 
+
             if(i !== infix.length -1){
                 if(isOperator(infix[i+1]) && infix[i+1] !== "-" && infix[i+1] !== "(" && infix[i] !== ")") return false //Two consecutive operators
             }
@@ -119,6 +130,7 @@ export const evalPostfix = (postfix: string[]) => {
             else if(token === "*") result = nm2 * nm1;
             else if(token === "/") result = nm2 / nm1;
             else if(token === "^") result = Math.pow(nm1, nm2)
+            else if(token === "%") result = nm2 % nm1;
             else console.log("ERROR: Unknow operator")        
         
             //console.log("result, ", result)    
