@@ -22,6 +22,7 @@ describe("Testing infix-postfix methods", () => {
         expect(isOperand("-")).not.toBeTruthy()
         expect(isOperand("*")).not.toBeTruthy()
         expect(isOperand("/")).not.toBeTruthy()
+        expect(isOperand("^")).not.toBeTruthy()
     })
 
     test("isOperator should return true", () => {

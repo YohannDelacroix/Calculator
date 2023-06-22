@@ -129,7 +129,7 @@ export const evalPostfix = (postfix: string[]) => {
             else if(token === "-") result = nm2 - nm1;
             else if(token === "*") result = nm2 * nm1;
             else if(token === "/") result = nm2 / nm1;
-            else if(token === "^") result = Math.pow(nm1, nm2)
+            else if(token === "^") result = Math.pow(nm2, nm1)
             else if(token === "%") result = nm2 % nm1;
             else console.log("ERROR: Unknow operator")        
         
