@@ -2,7 +2,7 @@ main{
   display: grid;
   place-items: center;
   align-content: center;
-  background-color: black;
+  background: radial-gradient(black , white);
   height: 100vh;
 }
 
@@ -17,7 +17,20 @@ main{
   align-items: center;
   font-size: 36px;
   padding: 5px;
-  color: white
+  color: white;
+
+  border-radius: 12px;
+  box-shadow: 6px 3px 5px white;
+
+  border: solid thin white;
+  font-family: 'digital-clock-font';
+  letter-spacing: .2rem;
+  font-size: 36px;
+}
+
+@font-face{
+  font-family:'digital-clock-font';
+  src: url('./Fonts/calculator/Calculator.ttf');
 }
 
 .keyboard{
@@ -45,11 +58,15 @@ main{
   color: white;
   font-weight: bolder;
   cursor: pointer;
+
+  border: solid 1px white;
 }
 
 .keyboard-button:enabled:hover{
   background-color: rgba(84, 77, 85, 0.43);
 }
+
+
 
 .equal{
   grid-row-start: 5;
