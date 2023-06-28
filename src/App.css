@@ -26,6 +26,8 @@ main{
   font-family: 'digital-clock-font';
   letter-spacing: .2rem;
   font-size: 36px;
+
+  overflow: hidden;
 }
 
 @font-face{
