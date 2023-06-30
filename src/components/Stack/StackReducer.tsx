@@ -1,4 +1,4 @@
-import { evalPostfix, toPostfix } from "../../Calc/Calc";
+import { evalPostfix, preScan, toPostfix } from "../../Calc/Calc";
 import * as STACK from "./StackMethods"
 
 export enum stackActionKind {
@@ -32,7 +32,8 @@ export const StackReducer = (state: stackState, action: stackAction) => {
         case stackActionKind.EMPTY:
             return {...state, stack: []}
         case stackActionKind.EVALUATE:
-            let postfix: string[] = toPostfix(state.stack)
+            let infixScanned: string[] = preScan(state.stack)
+            let postfix: string[] = toPostfix(infixScanned)
             let result: string = evalPostfix(postfix)
             return {...state, stack: [result]}
         default: 

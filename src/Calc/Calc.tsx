@@ -53,11 +53,41 @@ export const isValidInfixExp = (infix: string[]) => {
     return true
 }
 
+//Making a prescan and adapting it to be calculated
+export const preScan = (infix_src: string[]): string[] => {
+    console.log("IN VALUE of infix_src : ", infix_src);
+    let infix: string[] = [...infix_src];
+    console.log("infixLength: ", infix.length);
 
+    for(let i = 0; i < infix.length; i++){	
+        // CASE OF NO * TYPED *
+        if( isOperand(infix[i]) || infix[i] === ")" ){
+            if( infix[i+1] == "(" || isFunction(infix[i+1]) ){ 
+                infix.splice(i+1, 0, "*");    //Ajouter après elem : "*"
+            }
+        }
+        //CASE OF "-" 
+        if( infix[i] === "-" ){
+            if( i === 0 ){ //elem est premier de sa liste
+                infix[i] = "-1"
+                infix.splice(i+1, 0, "*");    //Ajouter après elem : "*"	
+            }
+            else{
+                if(infix[i+1] === "(" || 
+                    isFunction(infix[i]) || (isOperand(infix[i]+1) && isOperator(infix[i-1]) )){
+                    infix[i] = "-1";
+                    infix.splice(i+1, 0, "*");    //Ajouter après elem : "*"	
+                }
+            }
+        }
+    }
+
+    return infix
+}
 
 //convert a infix expression into postfix expression
 export const toPostfix = (infix: string[]): string[] => {
-    console.log("INFIX : ", infix)
+    //console.log("INFIX : ", infix)
 
     let postfix: string[] = [];
     let operator: string[] = [];
@@ -101,7 +131,7 @@ export const toPostfix = (infix: string[]): string[] => {
         if(lastOperator !== undefined) postfix.push(lastOperator)
     }
     
-    console.log("POSTFIX !", postfix)
+    //console.log("POSTFIX !", postfix)
     return postfix;
 }
 

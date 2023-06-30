@@ -1,0 +1,9 @@
+
+
+When typing 3pi  --> bug 
+
+
+Animation when click on a button, with the button translating in x and y while pressed
+
+
+should return error if trying doing square root on negative number

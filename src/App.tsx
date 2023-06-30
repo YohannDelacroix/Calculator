@@ -17,7 +17,12 @@ function App() {
       "0",".","%","/"
     ]
 
+    //Here is the frontStack, the one the user can see when he types
+    const [frontStack, dispatchFrontStack] = useReducer(StackReducer, { stack: []});
+    //Here is the backStack, used to calculate the expression
+    const [backStack, dispatchBackStack] = useReducer(StackReducer, { stack: []});
 
+    //Old version with one stack
     const [stack, dispatchStack] = useReducer(StackReducer, { stack: []})
 
     useEffect( () => {
@@ -29,22 +34,16 @@ function App() {
     const pushIntoStack = (value: string) => {
 
       if(PSTIN.isOperand(value)){
-        let lastIn = STACK.getLastIn(stack.stack)
 
         if(value === "pi") value = "3.14"
         
 
-        if(lastIn === "-" && (PSTIN.isOperator(STACK.getSecondFromEnd(stack.stack)) || STACK.getSecondFromEnd(stack.stack) === "")){
-          let completeValue = STACK.getLastIn(stack.stack) + value
-          dispatchStack({type: stackActionKind.POP, payload: [STACK.getLastIn(stack.stack)]})
-          dispatchStack({type: stackActionKind.PUSH, payload: [completeValue]})
-        }
-        else if(stack.stack.length == 0 || PSTIN.isOperator(lastIn)){
+        if(stack.stack.length == 0 || PSTIN.isOperator(STACK.getLastIn(stack.stack))){
           dispatchStack({type: stackActionKind.PUSH, payload: [value]})
         }
         else{ //The last in stack is an operand
           let completeValue = STACK.getLastIn(stack.stack) + value
-          dispatchStack({type: stackActionKind.POP, payload: [STACK.getLastIn(stack.stack)]})
+          dispatchStack({type: stackActionKind.POP, payload: []})
           dispatchStack({type: stackActionKind.PUSH, payload: [completeValue]})
         } 
 
@@ -58,7 +57,7 @@ function App() {
     //Evaluate an expression typed by the user
     const evaluate = () => {
       let valid: boolean = PSTIN.isValidInfixExp(stack.stack)
-      console.log("is VALID EXP ?", valid)
+      //console.log("is VALID EXP ?", valid)
       if(!valid) {
         dispatchStack({type: stackActionKind.EMPTY, payload: []})
         dispatchStack({type: stackActionKind.PUSH, payload: ["ERROR"]})

@@ -1,5 +1,5 @@
 import exp from "constants"
-import { toPostfix, isOperand, isFunction, isOperator, hasPriorityOn, evalPostfix, isValidInfixExp } from "./Calc"
+import { toPostfix, isOperand, isFunction, isOperator, hasPriorityOn, evalPostfix, isValidInfixExp, preScan } from "./Calc"
 import { textSpanContainsPosition } from "typescript"
 
 describe("Testing infix-postfix methods", () => {
@@ -101,6 +101,38 @@ describe("Testing infix-postfix methods", () => {
 
         let postfix7: string[] = ["9","7","+","\u221a"]
         expect(evalPostfix(postfix7)).toBe("4")
+    })
+
+    it("should make a prescan and return a valid expresion", () => {
+        //Case of no * typed
+        let expresion4: string[] = ["8", "\u221a","3"]
+        expect(preScan(expresion4)).toStrictEqual(["8", "*","\u221a","3"])
+
+        let expresion4b: string[] = ["8", "(","3","+","7",")"]
+        expect(preScan(expresion4b)).toStrictEqual(["8", "*", "(","3","+","7",")"])
+
+        let expresion4c: string[] = ["(","3","+","7",")","(","3","+","7",")"]
+        expect(preScan(expresion4c)).toStrictEqual(["(","3","+","7",")", "*", "(","3","+","7",")"])
+
+
+        //Case of - before functions or parenthesis
+        let expresion: string[] = ["-","(","5","+","9",")"]
+        expect(preScan(expresion)).toStrictEqual(["-1","*", "(","5","+","9",")"])
+
+        let expresion2: string[] = ["-","\u221a","9"]
+        expect(preScan(expresion2)).toStrictEqual(["-1","*","\u221a","9"])
+
+        let expresion3: string[] = ["5", "*", "-","\u221a","9"]
+        expect(preScan(expresion3)).toStrictEqual(["5", "*", "-1", "*","\u221a","9"])
+
+
+        //Case with - after operators
+        let expresion5: string[] = ["8", "-","-","3"]
+        expect(preScan(expresion5)).toStrictEqual(["8", "-","-1","*","3"])
+
+        let expresion6: string[] = ["-","3"]
+        expect(preScan(expresion6)).toStrictEqual(["-1","*","3"])
+
     })
 
     it("should reject an invalid expression", () => {

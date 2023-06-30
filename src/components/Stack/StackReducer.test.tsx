@@ -2,7 +2,7 @@ import { useReducer } from "react"
 import { StackReducer } from "./StackReducer"
 
 describe("TESTING STACK REDUCER", () => {
-    it("should", () => {
+    it.skip("should", () => {
 
     })
 })
