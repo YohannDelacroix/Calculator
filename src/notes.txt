@@ -4,8 +4,8 @@
 console.log("\u03c0")
 
 
-When typing  sq(pi)
-
+When :   pi ( pi ^ 2 )
+    bug
 
 Animation when click on a button, with the button translating in x and y while pressed
 

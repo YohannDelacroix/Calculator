@@ -32,8 +32,8 @@ export const isValidInfixExp = (infix: string[]) => {
                 return false   //If the first is an operator, (except - and ) and sqr ) , invalid
             } 
 
-            if(i !== infix.length -1){ //infix.length -1 because Not needed to check the last operator because noone else can follow it
-                if(isOperator(infix[i+1]) && infix[i+1] !== "\u221a" && infix[i+1] !== "-" && infix[i+1] !== "(" && infix[i] !== ")") {
+            if(i !== infix.length -1 && infix[i] !== "\u03c0"){ //infix.length -1 because Not needed to check the last operator because noone else can follow it
+                if(isOperator(infix[i+1]) && infix[i+1] !== "\u221a" && infix[i+1] !== "-" && infix[i+1] !== "(" && infix[i] !== ")" && infix[i+1] !== "\u03c0") {
                     console.log("ERROR : Two consecutives operators, i = ", i)
                     return false //Two consecutive operators
                 }
@@ -70,7 +70,7 @@ export const preScan = (infix_src: string[]): string[] => {
 
         // CASE OF NO * TYPED operator at the left
         if( infix[i] === "\u03c0" || infix[i] === ")"){
-            if( isOperand(infix[i+1]) ){ 
+            if( isOperand(infix[i+1]) || infix[i+1] === "\u03c0" || infix[i+1] === "("){ 
                 infix.splice(i+1, 0, "*");    //Ajouter après elem : "*"
             }
         }

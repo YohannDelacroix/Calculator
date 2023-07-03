@@ -143,6 +143,9 @@ describe("Testing infix-postfix methods", () => {
         let expresion7: string[] = ["9", "\u03c0"]
         expect(preScan(expresion7)).toStrictEqual(["9","*", Math.PI.toString()])
 
+        let expresion7b: string[] = ["\u03c0","(","\u03c0","^","2",")"]
+        expect(preScan(expresion7b)).toStrictEqual([Math.PI.toString(),"*","(",Math.PI.toString(),"^","2",")"])
+
     })
 
     it("should reject an invalid expression", () => {
