@@ -4,7 +4,7 @@
 console.log("\u03c0")
 
 
-When typing  pi(3 + 3)     --> bug
+When typing  sq(pi)
 
 
 Animation when click on a button, with the button translating in x and y while pressed

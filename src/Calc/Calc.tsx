@@ -61,12 +61,23 @@ export const preScan = (infix_src: string[]): string[] => {
     console.log("infixLength: ", infix.length);
 
     for(let i = 0; i < infix.length; i++){	
-        // CASE OF NO * TYPED *
+        // CASE OF NO * TYPED operator at the right
         if( isOperand(infix[i]) || infix[i] === ")" ){
-            if( infix[i+1] == "(" || isFunction(infix[i+1]) ){ 
+            if( infix[i+1] === "(" || isFunction(infix[i+1]) ){ 
                 infix.splice(i+1, 0, "*");    //Ajouter après elem : "*"
             }
         }
+
+        // CASE OF NO * TYPED operator at the left
+        if( infix[i] === "\u03c0" || infix[i] === ")"){
+            if( isOperand(infix[i+1]) ){ 
+                infix.splice(i+1, 0, "*");    //Ajouter après elem : "*"
+            }
+        }
+
+
+        
+
         //CASE OF "-" 
         if( infix[i] === "-" ){
             if( i === 0 ){ //elem est premier de sa liste

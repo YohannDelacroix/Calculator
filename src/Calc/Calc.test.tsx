@@ -116,6 +116,10 @@ describe("Testing infix-postfix methods", () => {
         let expresion4c: string[] = ["(","3","+","7",")","(","3","+","7",")"]
         expect(preScan(expresion4c)).toStrictEqual(["(","3","+","7",")", "*", "(","3","+","7",")"])
 
+        //Case of no * typed opposite
+        let expresion8: string[] = ["(","6","+","9",")","7"]
+        expect(preScan(expresion8)).toStrictEqual(["(","6","+","9",")","*","7"])
+
 
         //Case of - before functions or parenthesis
         let expresion: string[] = ["-","(","5","+","9",")"]
