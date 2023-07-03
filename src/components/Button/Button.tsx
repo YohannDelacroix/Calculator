@@ -19,9 +19,9 @@ const Button = ({value, onClick}: ButtonProp) => {
 
         <button className={value === "=" ? "keyboard-button equal" : "keyboard-button"} onClick={() => onClick(value)} disabled={disabledCommands.includes(value)}>
         
-        {value === "sq" 
+        {value === "\u221a" 
             ? <TbMath /> 
-            : value === "pi"
+            : value === "\u03c0"
             ? <TbMathPi />
             : value === "<-"
             ? <FiDelete />

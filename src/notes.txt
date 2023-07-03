@@ -1,6 +1,10 @@
 
 
-When typing 3pi  --> bug 
+
+console.log("\u03c0")
+
+
+When typing  pi(3 + 3)     --> bug
 
 
 Animation when click on a button, with the button translating in x and y while pressed

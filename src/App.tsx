@@ -10,7 +10,7 @@ import { StackReducer, stackActionKind } from './components/Stack/StackReducer';
 function App() {
 
     const commands = [
-      "<-","(",")","pi","AC",
+      "<-","(",")","\u03c0","AC",
       "7","8","9","+","\u221a",
       "4","5","6","*","^",
       "1","2","3","-","=",
@@ -34,16 +34,13 @@ function App() {
     const pushIntoStack = (value: string) => {
 
       if(PSTIN.isOperand(value)){
-
-        if(value === "pi") value = "3.14"
         
-
-        if(stack.stack.length == 0 || PSTIN.isOperator(STACK.getLastIn(stack.stack))){
+        if(stack.stack.length === 0 || PSTIN.isOperator(STACK.getLastIn(stack.stack))){
           dispatchStack({type: stackActionKind.PUSH, payload: [value]})
         }
         else{ //The last in stack is an operand
           let completeValue = STACK.getLastIn(stack.stack) + value
-          dispatchStack({type: stackActionKind.POP, payload: []})
+          dispatchStack({type: stackActionKind.POP, payload: [STACK.getLastIn(stack.stack)]})
           dispatchStack({type: stackActionKind.PUSH, payload: [completeValue]})
         } 
 

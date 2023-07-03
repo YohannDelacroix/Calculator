@@ -15,7 +15,7 @@ describe("Testing infix-postfix methods", () => {
         expect(isOperand("8")).toBeTruthy()
         expect(isOperand("9")).toBeTruthy()
         expect(isOperand(".")).toBeTruthy()
-        expect(isOperand("pi")).toBeTruthy()
+        expect(isOperand("\u03c0")).not.toBeTruthy()
     })
 
     test("isOperand should return false", () => {
@@ -44,11 +44,13 @@ describe("Testing infix-postfix methods", () => {
 
     test("isFunction should return true", () => {
         expect(isFunction("\u221a")).toBeTruthy()
+        expect(isFunction("\u03c0")).toBeTruthy()
     })
 
     test("isFunction should return false", () => {
         expect(isFunction("7")).not.toBeTruthy()
         expect(isFunction("+")).not.toBeTruthy()
+
     })
 
     test("Priority checks works", () => {
@@ -132,6 +134,10 @@ describe("Testing infix-postfix methods", () => {
 
         let expresion6: string[] = ["-","3"]
         expect(preScan(expresion6)).toStrictEqual(["-1","*","3"])
+
+        //case of pi
+        let expresion7: string[] = ["9", "\u03c0"]
+        expect(preScan(expresion7)).toStrictEqual(["9","*", Math.PI.toString()])
 
     })
 

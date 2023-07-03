@@ -8,6 +8,7 @@ const operatorList: any[] = [
     {op:"%", priority:2},
     {op:"^", priority:3},
     {op:"\u221a", priority:3},
+    {op:"\u03c0", priority:3}
 ]
 
 
@@ -20,13 +21,13 @@ export const isValidInfixExp = (infix: string[]) => {
     for(let i = 0; i < infix.length; i++){
         if(isOperator(infix[i])){
 
-            if(i === infix.length - 1 && infix[i] !== ")") 
+            if(i === infix.length - 1 && infix[i] !== ")" && infix[i] !== "\u03c0") 
             {
                 console.log("ERROR: If the last is an operator , invalid expression")
                 return false   //If the last is an operator , invalid expression
             }
 
-            if(i === 0 && infix[i] !== "-" && infix[i] !== "(" && infix[i] !== "\u221a") {
+            if(i === 0 && infix[i] !== "-" && infix[i] !== "(" && infix[i] !== "\u221a" && infix[i] !== "\u03c0") {
                 console.log("ERROR: First typed is an operator")
                 return false   //If the first is an operator, (except - and ) and sqr ) , invalid
             } 
@@ -79,6 +80,13 @@ export const preScan = (infix_src: string[]): string[] => {
                     infix.splice(i+1, 0, "*");    //Ajouter après elem : "*"	
                 }
             }
+        }
+
+        if(infix[i] === "\u03c0"){   //Converting PI
+            infix[i] = Math.PI.toString();
+            //infix[i] = "3";
+
+            console.log("pi")
         }
     }
 
@@ -201,7 +209,7 @@ export const evalPostfix = (postfix: string[]) => {
 
 //Is the character an operand ?
 export const isOperand = (c: string) => {
-    return !isNaN(+c) || c === "." || c === "pi"
+    return !isNaN(+c) || c === "."
 }
 
 //Is the character an operator ?
@@ -215,7 +223,7 @@ export const isOperator = (c: string) => {
 
 export const isFunction = (c: string) => {
     if(isOperator(c)){
-        if(c === "\u221a"){
+        if(c === "\u221a" || c === "\u03c0"){
             return true;
         }
     }
