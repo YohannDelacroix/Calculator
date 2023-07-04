@@ -47,6 +47,7 @@ export const isValidInfixExp = (infix: string[]) => {
 
          if(infix[i] === "(") openingCount += 1
          if(infix[i] === ")") closingCount += 1
+
     }
 
     if(openingCount !== closingCount) return false //Parenthesis not correctly opened and/or closed
