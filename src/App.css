@@ -70,7 +70,10 @@ main{
   font-weight: bolder;
   cursor: pointer;
 
-
+  font-family: 'digital-clock-font';
+  font-size: 23px;
+  
+  vertical-align: middle;
 }
 
 /*.keyboard-button:enabled:hover{
