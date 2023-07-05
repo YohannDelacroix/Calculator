@@ -31,6 +31,13 @@ main{
   overflow: hidden;
 }
 
+.screen-numeric-value{
+  display: grid;
+  place-items: end;
+  width: 100%;
+  overflow: hidden;
+}
+
 @font-face{
   font-family:'digital-clock-font';
   src: url('./Fonts/calculator/Calculator.ttf');

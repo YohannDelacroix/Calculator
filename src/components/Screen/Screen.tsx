@@ -9,7 +9,7 @@ const Screen = ({stack}: screenProp) => {
 
 
   return (
-    <div>{STACK.toString(stack)}</div>
+    <div className="screen-numeric-value">{STACK.toString(stack)}</div>
   )
 }
 
