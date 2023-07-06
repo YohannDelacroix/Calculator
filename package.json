@@ -18,6 +18,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test --verbose",
     "eject": "react-scripts eject"
@@ -42,6 +44,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
+    "gh-pages": "^5.0.0",
     "react-test-renderer": "^18.2.0"
   }
 }
