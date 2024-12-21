@@ -6,7 +6,6 @@ main{
   height: 100vh;
 }
 
-
 .screen{
   background-color: rgba(235, 229, 232, 0.4);
   grid-column: 1 / 6;
@@ -53,7 +52,6 @@ main{
   align-items: stretch;
   align-content: center;
   gap: 5px;
-
   padding: 20px;
 }
 

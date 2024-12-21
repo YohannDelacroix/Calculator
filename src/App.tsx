@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import './App.css';
 import Screen from './components/Screen/Screen';
 import Button from './components/Button/Button';
@@ -8,7 +8,6 @@ import { StackReducer, stackActionKind } from './Stack/StackReducer';
 
 
 function App() {
-
     const commands = [
       "<-","(",")","\u03c0","AC",
       "7","8","9","+","\u221a",
@@ -29,8 +28,6 @@ function App() {
       console.log("Stack: ", stack.stack);
     }, [stack])
 
-
-
     const pushIntoStack = (value: string) => {
       if(PSTIN.isOperand(value)){
         if(stack.stack.length === 0 || PSTIN.isOperator(STACK.getLastIn(stack.stack))){
@@ -47,7 +44,6 @@ function App() {
       }
     }
 
-
     //Evaluate an expression typed by the user
     const evaluate = () => {
       let valid: boolean = PSTIN.isValidInfixExp(stack.stack)
@@ -58,7 +54,6 @@ function App() {
       }
       else dispatchStack({type: stackActionKind.EVALUATE, payload: []})
     }
-
 
     //Back button, delete 1 character exactly
     const back = () => {
@@ -90,21 +85,16 @@ function App() {
           <section className="screen">
            <Screen stack={stack.stack} />
           </section>
-        
-          {
-            commands.map( c => {
-              if(c === "=") return <Button value={c} key={c} onClick={evaluate} />
-              else if(c === "AC") return <Button value={c} key={c} onClick={handleAC} />
-              else if(c === "<-") return <Button value={c} key={c} onClick={back} />
-              else return <Button value={c} key={c} onClick={pushIntoStack} />
-            })
-          }
-          
-         
+            {
+              commands.map( c => {
+                if(c === "=") return <Button value={c} key={c} onClick={evaluate} />
+                else if(c === "AC") return <Button value={c} key={c} onClick={handleAC} />
+                else if(c === "<-") return <Button value={c} key={c} onClick={back} />
+                else return <Button value={c} key={c} onClick={pushIntoStack} />
+              })
+            }
         </section>
-        
       </main>
-     
     );
 }
 
