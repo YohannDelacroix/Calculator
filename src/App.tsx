@@ -2,9 +2,9 @@ import React, { useEffect, useReducer } from 'react';
 import './App.css';
 import Screen from './components/Screen/Screen';
 import Button from './components/Button/Button';
-import * as STACK from "./components/Stack/StackMethods"
+import * as STACK from "./Stack/StackMethods"
 import * as PSTIN from "./Calc/Calc"
-import { StackReducer, stackActionKind } from './components/Stack/StackReducer';
+import { StackReducer, stackActionKind } from './Stack/StackReducer';
 
 
 function App() {
@@ -32,9 +32,7 @@ function App() {
 
 
     const pushIntoStack = (value: string) => {
-
       if(PSTIN.isOperand(value)){
-        
         if(stack.stack.length === 0 || PSTIN.isOperator(STACK.getLastIn(stack.stack))){
           dispatchStack({type: stackActionKind.PUSH, payload: [value]})
         }
@@ -43,7 +41,6 @@ function App() {
           dispatchStack({type: stackActionKind.POP, payload: [STACK.getLastIn(stack.stack)]})
           dispatchStack({type: stackActionKind.PUSH, payload: [completeValue]})
         } 
-
       }
       else if(PSTIN.isOperator(value)){
         dispatchStack({type: stackActionKind.PUSH, payload: [value]})
@@ -82,13 +79,11 @@ function App() {
       }
     }
 
-
     //AC button - reset the stack
     const handleAC = () => {
       dispatchStack({type: stackActionKind.EMPTY, payload: []})
     }
 
-  
     return (
       <main>
         <section className="keyboard">

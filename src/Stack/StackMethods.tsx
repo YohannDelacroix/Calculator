@@ -1,12 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
 
-
 //Push a value on top of Stack
 export const push = (stack: string[], setStack: Dispatch<SetStateAction<string[]>>, value: string[]) => {
     console.log(value)
     setStack([...stack, ...value])
 }
-
 
 //Get the second value from the beginning of the end to the left
 export const getSecondFromEnd = (stack: string[]) => {
@@ -31,7 +29,6 @@ export const pop = (stack: string[], setStack: Dispatch<SetStateAction<string[]>
 export const emptyStack = (stack: string[], setStack: Dispatch<SetStateAction<string[]>>) => {
     setStack([])
 }
-
 
 //convert the string array into a string
 export const toString = (stack: string[]) => {

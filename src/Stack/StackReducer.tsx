@@ -1,4 +1,4 @@
-import { evalPostfix, preScan, toPostfix } from "../../Calc/Calc";
+import { evalPostfix, preScan, toPostfix } from "../Calc/Calc";
 import * as STACK from "./StackMethods"
 
 export enum stackActionKind {
@@ -17,7 +17,6 @@ interface stackAction{
 interface stackState{
     stack: string[]
 }
-
 
 export const StackReducer = (state: stackState, action: stackAction) => {
     const { type, payload } = action

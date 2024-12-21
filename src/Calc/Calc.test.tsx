@@ -157,7 +157,6 @@ describe("Testing infix-postfix methods", () => {
     })
 
     it("should accept a valid expression", () => {
-        
         expect(isValidInfixExp(["53","*","4.7","+","3"])).toBeTruthy()
         expect(isValidInfixExp(["8","*","(","4","*","9","+","3","*","7",")","+","2"])).toBeTruthy()
         expect(isValidInfixExp(["(","5","+","4",")","*","(","9","/","8",")"])).toBeTruthy()

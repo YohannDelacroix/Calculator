@@ -1,3 +1,7 @@
+/* Calc.tsx 
+    Contains all the mathematical logic for the calculation
+*/
+
 const operatorList: any[] = [
     {op:"(", priority:0},
     {op:")", priority:0},
@@ -10,8 +14,6 @@ const operatorList: any[] = [
     {op:"\u221a", priority:3},
     {op:"\u03c0", priority:3}
 ]
-
-
 
 //Check if the infix exp is valid 
 export const isValidInfixExp = (infix: string[]) => {
@@ -47,11 +49,9 @@ export const isValidInfixExp = (infix: string[]) => {
 
          if(infix[i] === "(") openingCount += 1
          if(infix[i] === ")") closingCount += 1
-
     }
 
     if(openingCount !== closingCount) return false //Parenthesis not correctly opened and/or closed
-
     return true
 }
 
@@ -76,9 +76,6 @@ export const preScan = (infix_src: string[]): string[] => {
             }
         }
 
-
-        
-
         //CASE OF "-" 
         if( infix[i] === "-" ){
             if( i === 0 ){ //elem est premier de sa liste
@@ -94,11 +91,9 @@ export const preScan = (infix_src: string[]): string[] => {
             }
         }
 
-        if(infix[i] === "\u03c0"){   //Converting PI
+        //Case of using of symbol PI \u03c0
+        if(infix[i] === "\u03c0"){   
             infix[i] = Math.PI.toString();
-            //infix[i] = "3";
-
-            console.log("pi")
         }
     }
 
