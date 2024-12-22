@@ -81,19 +81,22 @@ function App() {
 
     return (
       <main>
-        <section className="keyboard">
-          <section className="screen">
-           <Screen stack={stack.stack} />
+          <header><p>CALCULATOR</p></header>
+          <section className="calculator">
+            <section className="screen">
+            <Screen stack={stack.stack} />
+            </section>
+            <section className="keyboard">
+              {
+                commands.map( c => {
+                  if(c === "=") return <Button value={c} key={c} onClick={evaluate} />
+                  else if(c === "AC") return <Button value={c} key={c} onClick={handleAC} />
+                  else if(c === "<-") return <Button value={c} key={c} onClick={back} />
+                  else return <Button value={c} key={c} onClick={pushIntoStack} />
+                })
+              }
+            </section>
           </section>
-            {
-              commands.map( c => {
-                if(c === "=") return <Button value={c} key={c} onClick={evaluate} />
-                else if(c === "AC") return <Button value={c} key={c} onClick={handleAC} />
-                else if(c === "<-") return <Button value={c} key={c} onClick={back} />
-                else return <Button value={c} key={c} onClick={pushIntoStack} />
-              })
-            }
-        </section>
       </main>
     );
 }
