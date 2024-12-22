@@ -19,7 +19,10 @@ const Button = ({value, onClick}: ButtonProp) => {
     const disabledCommands = ["mod"];
 
     return (
-        <button className={value === "=" ? "keyboard-button equal" : "keyboard-button"} onClick={() => onClick(value)} disabled={disabledCommands.includes(value)}>
+        <button className={value === "=" ? "keyboard-button equal" : "keyboard-button"} 
+                onClick={() => onClick(value)} 
+                disabled={disabledCommands.includes(value)}
+                value={value}>
             {value === "\u221a" 
                 ? <TbMath /> 
                 : value === "\u03c0"

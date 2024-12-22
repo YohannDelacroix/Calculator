@@ -38,9 +38,10 @@ main{
     max-width: 600px; /* Limite la taille maximale de la calculatrice */
     max-height: 80vh; /* S'assure que la calculatrice ne dépasse pas la hauteur de l'écran */
     width: 100%;
-    padding: 10px;
+    padding: 20px;
     background-color: white;
     border-radius: 7px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -64,9 +65,6 @@ main{
     aspect-ratio: 5/1; 
     margin-bottom: 10px;
 }
-
-
-
 
 .screen-numeric-value{
     text-align: right;
@@ -128,6 +126,19 @@ main{
 .keyboard-button:enabled:active{
     transform: scale(0.9);
 }
+
+button[value="AC"] {
+    background-color: #b84d4d; /* Rouge bordeaux */
+  }
+  
+  button[value="="] {
+    background-color: #4a90e2; /* Bleu pastel */
+  }
+  
+  button[value="<-"] {
+    background-color: #f1c232; /* Jaune moutarde */
+  }
+  
 
 .equal{
     grid-row-start: 4;
