@@ -70,9 +70,8 @@ main{
 
 .screen-numeric-value{
     text-align: right;
-    overflow-x: auto;
+    overflow: hidden;
     width: 100%;
-    
 }
 
 @font-face{
