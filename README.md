@@ -1,47 +1,76 @@
-# Getting Started with Create React App
+# **React Calculator**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+A simple and elegant calculator built with React. This project demonstrates the use of React components, stack techniques for calculations, and modern UI features. The app supports basic arithmetic operations (addition, subtraction, multiplication, division) with both integer and decimal numbers, as well as more advanced functions such as square roots, powers, and calculations involving parentheses. It also includes additional features like undo and history clearing.
 
-In the project directory, you can run:
+**Main Features**:
+- Basic arithmetic operations: addition, subtraction, multiplication, division.
+- Complex operations: Square roots, powers, calculations involving parentheses, PI number or modulos.
+- Additional buttons: `AC` for reset, `<-` for undo.
+- Modern design with shadows and animations.
 
-### `npm start`
+## Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+You can try the calculator online by clicking the following link:  
+[Live Calculator](https://your-calculator.netlify.app)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+This project was developed using the following technologies:
+- **React** (version 18.2.0)
+- **Typescript** (version 4.9.5)
+- **CSS** (for styling, animations and responsive design)
+- **Netlify** (for deployment)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Make sure you have **Node.js** and **npm** installed on your machine. If not, you can download them from [Node.js](https://nodejs.org/).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Steps to Run the App Locally
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone this repository:
+    git clone https://github.com/YohannDelacroix/Calculator.git
 
-### `npm run eject`
+2. Navigate to the project directory:
+    cd Calculator
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. Install the dependencies:
+    npm install
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Start the development server:
+    npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Usage
+    Main Interface:
+        The top section displays the screen where calculation results are shown.
+        The keyboard section contains all the necessary buttons for performing basic calculations.
+        The AC button resets the calculator.
+        The <- button undoes the last action.
+    How it works:
+        Click the number buttons and operators to build a mathematical expression.
+        Click the equal (=) button to get the calculation result.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Project Structure
 
-## Learn More
+Here’s an overview of the project structure with a description of each important file/folder:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    /src
+        /Calc                          # Typescript function for the calculations
+        /components
+            /Button/Button.tsx         # Component for each button on the calculator
+            /Screen/Screen.tsx         # Component for displaying the calculation screen
+        /Stack                         # Typescript functions and testing for stack gestion
+            StackMethods.tsx
+            StackReducer.tsx            
+        App.css                        # Main styling for the app
+        App.tsx                        # Main component that contains the app's logic
+        index.tsx               #  Entry point of the app
+    /public                     # React Build of the application
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-# Calculator
+
+### Authors
+
+    Yohann Delacroix – Full-Stack Developer
