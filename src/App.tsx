@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import './App.css';
 import Screen from './components/Screen/Screen';
 import Button from './components/Button/Button';
@@ -16,12 +16,7 @@ function App() {
       "0",".","%","/"
     ]
 
-    //Here is the frontStack, the one the user can see when he types
-    const [frontStack, dispatchFrontStack] = useReducer(StackReducer, { stack: []});
-    //Here is the backStack, used to calculate the expression
-    const [backStack, dispatchBackStack] = useReducer(StackReducer, { stack: []});
 
-    //Old version with one stack
     const [stack, dispatchStack] = useReducer(StackReducer, { stack: []})
 
     useEffect( () => {

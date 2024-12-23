@@ -155,17 +155,13 @@ export const toPostfix = (infix: string[]): string[] => {
 export const evalPostfix = (postfix: string[]) => {
     let stack: string[] = []
 
-    const trace = () => {
-        console.log(stack)
-    }
-
-    postfix.map( token => {
+    postfix.forEach( token => {
         if(isOperand(token)) stack.push(token)
         else if(isFunction(token)){
             let lastNb = stack.pop();
 
             let lastNm: number;
-            if(lastNb != undefined){
+            if(lastNb !== undefined){
                 lastNm = parseFloat(lastNb)
             }
             else throw new Error("Undefined last number")
@@ -181,15 +177,11 @@ export const evalPostfix = (postfix: string[]) => {
             let nb1 = stack.pop()
             let nb2 = stack.pop()
 
-            //trace()
-
             let nm1: number;
             let nm2: number;
-            if(nb1 != undefined && nb2 != undefined){
+            if(nb1 !== undefined && nb2 !== undefined){
                 nm1 = parseFloat(nb1)
                 nm2 = parseFloat(nb2)
-
-                //console.log("nm1, nm2", nm1, nm2)
             }
             else throw new Error("Undefined nb1 and/or nb2")
 
@@ -201,15 +193,12 @@ export const evalPostfix = (postfix: string[]) => {
             else if(token === "^") result = Math.pow(nm2, nm1)
             else if(token === "%") result = nm2 % nm1;
             else console.log("ERROR: Unknow operator")        
-        
-            //console.log("result, ", result)    
 
             let result_str: string = result.toString()
             stack.push(result_str)
         }
     })
 
-    //console.log("Final: ", stack)
     return stack[0]
 }
 
@@ -222,7 +211,7 @@ export const isOperand = (c: string) => {
 //Is the character an operator ?
 export const isOperator = (c: string) => {
     let operator = false
-    operatorList.map(op => {
+    operatorList.forEach(op => {
         if(c === op.op) operator = true
     })
     return operator

@@ -14,7 +14,7 @@ export const getSecondFromEnd = (stack: string[]) => {
 
 //Get the last in stack
 export const getLastIn = (stack: string[]) => {
-    if(stack.length == 0) return ""
+    if(stack.length === 0) return ""
     return stack[stack.length-1]
 }
 
