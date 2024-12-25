@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 
 //Push a value on top of Stack
-export const push = (stack: string[], setStack: Dispatch<SetStateAction<string[]>>, value: string[]) => {
+export const pushValuesToStack = (stack: string[], setStack: Dispatch<SetStateAction<string[]>>, value: string[]) => {
     console.log(value)
     setStack([...stack, ...value])
 }
 
 //Get the second value from the beginning of the end to the left
-export const getSecondFromEnd = (stack: string[]) => {
+export const getSecondValueFromEnd = (stack: string[]) => {
     if(stack.length < 2) return ""
     return stack[stack.length-2]
 }
@@ -18,7 +18,7 @@ export const getLastIn = (stack: string[]) => {
     return stack[stack.length-1]
 }
 
-export const pop = (stack: string[], setStack: Dispatch<SetStateAction<string[]>>) => {
+export const popValueFromStack = (stack: string[], setStack: Dispatch<SetStateAction<string[]>>) => {
     if(stack.length > 0){
         let lastValue = stack.pop();
         setStack([...stack]);

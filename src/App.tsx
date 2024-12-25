@@ -2,13 +2,13 @@ import React, { useEffect, useReducer } from 'react';
 import './App.css';
 import Screen from './components/Screen/Screen';
 import Button from './components/Button/Button';
-import * as STACK from "./Stack/StackMethods"
-import * as PSTIN from "./Calc/Calc"
+import * as StackUtils from "./Stack/StackUtils"
+import * as CalcUtils from "./Calc/CalcUtils"
 import { StackReducer, stackActionKind } from './Stack/StackReducer';
 
 
 function App() {
-    const commands = [
+    const buttonCommands = [
       "<-","(",")","\u03c0","AC",
       "7","8","9","+","\u221a",
       "4","5","6","*","^",
@@ -16,43 +16,44 @@ function App() {
       "0",".","%","/"
     ]
 
-
-    const [stack, dispatchStack] = useReducer(StackReducer, { stack: []})
+    const [stackState, dispatchStack] = useReducer(StackReducer, { stack: []})
 
     useEffect( () => {
-      console.log("Stack: ", stack.stack);
-    }, [stack])
+      console.log("Stack: ", stackState.stack);
+    }, [stackState])
 
-    const pushIntoStack = (value: string) => {
-      if(PSTIN.isOperand(value)){
-        if(stack.stack.length === 0 || PSTIN.isOperator(STACK.getLastIn(stack.stack))){
-          dispatchStack({type: stackActionKind.PUSH, payload: [value]})
+
+    //Given a character typed by the user, add this character to the stack
+    const pushToStack = (value: string): void => {
+      if(CalcUtils.isOperand(value)){
+        if(stackState.stack.length === 0 || CalcUtils.isOperator(StackUtils.getLastIn(stackState.stack))){
+          dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: [value]})
         }
         else{ //The last in stack is an operand
-          let completeValue = STACK.getLastIn(stack.stack) + value
-          dispatchStack({type: stackActionKind.POP, payload: [STACK.getLastIn(stack.stack)]})
-          dispatchStack({type: stackActionKind.PUSH, payload: [completeValue]})
+          let completeValue = StackUtils.getLastIn(stackState.stack) + value
+          dispatchStack({type: stackActionKind.REMOVE_FROM_STACK, payload: [StackUtils.getLastIn(stackState.stack)]})
+          dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: [completeValue]})
         } 
       }
-      else if(PSTIN.isOperator(value)){
-        dispatchStack({type: stackActionKind.PUSH, payload: [value]})
+      else if(CalcUtils.isOperator(value)){
+        dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: [value]})
       }
     }
 
     //Evaluate an expression typed by the user
-    const evaluate = () => {
-      let valid: boolean = PSTIN.isValidInfixExp(stack.stack)
+    const evaluateExpression = () => {
+      let valid: boolean = CalcUtils.isValidInfixExpression(stackState.stack)
       //console.log("is VALID EXP ?", valid)
       if(!valid) {
         dispatchStack({type: stackActionKind.EMPTY, payload: []})
-        dispatchStack({type: stackActionKind.PUSH, payload: ["ERROR"]})
+        dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: ["ERROR"]})
       }
       else dispatchStack({type: stackActionKind.EVALUATE, payload: []})
     }
 
     //Back button, delete 1 character exactly
-    const back = () => {
-      let newStack = [...stack.stack]
+    const deleteLastCharacter = () => {
+      let newStack = [...stackState.stack]
       let last = newStack.pop()
 
       if(last === undefined) {
@@ -62,15 +63,15 @@ function App() {
       dispatchStack({type: stackActionKind.EMPTY, payload: []})
       
       if(last.length > 1){
-        dispatchStack({type: stackActionKind.PUSH, payload: [...newStack, last.substring(0, last.length-1)]})
+        dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: [...newStack, last.substring(0, last.length-1)]})
       }
       else{
-        dispatchStack({type: stackActionKind.PUSH, payload: [...newStack]})
+        dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: [...newStack]})
       }
     }
 
     //AC button - reset the stack
-    const handleAC = () => {
+    const resetStack = () => {
       dispatchStack({type: stackActionKind.EMPTY, payload: []})
     }
 
@@ -79,15 +80,15 @@ function App() {
           <header><p>CALCULATOR</p></header>
           <section className="calculator">
             <section className="screen">
-            <Screen stack={stack.stack} />
+            <Screen calculatorStack={stackState.stack} />
             </section>
             <section className="keyboard">
               {
-                commands.map( c => {
-                  if(c === "=") return <Button value={c} key={c} onClick={evaluate} />
-                  else if(c === "AC") return <Button value={c} key={c} onClick={handleAC} />
-                  else if(c === "<-") return <Button value={c} key={c} onClick={back} />
-                  else return <Button value={c} key={c} onClick={pushIntoStack} />
+                buttonCommands.map( c => {
+                  if(c === "=") return <Button buttonValue={c} key={c} onButtonClick={evaluateExpression} />
+                  else if(c === "AC") return <Button buttonValue={c} key={c} onButtonClick={resetStack} />
+                  else if(c === "<-") return <Button buttonValue={c} key={c} onButtonClick={deleteLastCharacter} />
+                  else return <Button buttonValue={c} key={c} onButtonClick={pushToStack} />
                 })
               }
             </section>

@@ -1,7 +1,7 @@
 import { StackProvider, useStackContext } from "../StackContext"
 import { useEffect, useState } from "react"
 import { fireEvent, getByTestId, render, screen, cleanup, waitFor } from "@testing-library/react"
-import * as STACK from "./StackMethods";
+import * as StackUtils from "./StackUtils";
 
 describe('TESTING STACK PROVIDER -------------------------------------- ', () => {
 
@@ -9,8 +9,8 @@ describe('TESTING STACK PROVIDER -------------------------------------- ', () =>
         const {operandStack, setOperandStack, operatorStack, setOperatorStack} = useStackContext();
 
         useEffect(() => {
-            STACK.push(operandStack, setOperandStack, ["5"])
-            STACK.push(operatorStack, setOperatorStack, ["+"])
+            StackUtils.pushValuesToStack(operandStack, setOperandStack, ["5"])
+            StackUtils.pushValuesToStack(operatorStack, setOperatorStack, ["+"])
         }, [])
 
 
@@ -19,7 +19,7 @@ describe('TESTING STACK PROVIDER -------------------------------------- ', () =>
         const [testPopOperator, setTestPopOperator] = useState(false)
         const popOperator = () => {
             console.log("SIMULATE CLICK")
-            let last = STACK.pop(operatorStack, setOperatorStack)
+            let last = StackUtils.popValueFromStack(operatorStack, setOperatorStack)
             if(last === '+' && operatorStack.length === 0){
                 setTestPopOperator(true)
             }
@@ -29,7 +29,7 @@ describe('TESTING STACK PROVIDER -------------------------------------- ', () =>
         const [testPopOperand, setTestPopOperand] = useState(false)
         const popOperand = () => {
             console.log("SIMULATE CLICK")
-            let last = STACK.pop(operandStack, setOperandStack)
+            let last = StackUtils.popValueFromStack(operandStack, setOperandStack)
             if(last === '5' && operandStack.length === 0){
                 setTestPopOperand(true)
             }
@@ -39,8 +39,8 @@ describe('TESTING STACK PROVIDER -------------------------------------- ', () =>
         return(<main>
             {operandStack.length > 0 && <span data-testid="pushOperand"></span>}
             {operatorStack.length > 0 && <span data-testid="pushOperator"></span>}
-            {STACK.getLastIn(operandStack) === '5' && <span data-testid="lastInOperand"></span>}
-            {STACK.getLastIn(operatorStack) === '+' && <span data-testid="lastInOperator"></span>}
+            {StackUtils.getLastIn(operandStack) === '5' && <span data-testid="lastInOperand"></span>}
+            {StackUtils.getLastIn(operatorStack) === '+' && <span data-testid="lastInOperator"></span>}
 
             <button onClick={popOperator} data-testid="btnPopOperator"></button>
             {testPopOperator && <span data-testid="testPopOperator"></span>}
@@ -103,14 +103,14 @@ describe('TESTING STACK PROVIDER -------------------------------------- ', () =>
 
     describe('Stack methods', () => {
         it("should return a valid string format", () => {
-            expect(STACK.toString(["4","6","5",".","5"])).toBe("465.5")
-            expect(STACK.toString([])).toBe("")
+            expect(StackUtils.toString(["4","6","5",".","5"])).toBe("465.5")
+            expect(StackUtils.toString([])).toBe("")
         })
 
         it("get second from end", () => {
-            expect(STACK.getSecondFromEnd(["4","+","9"])).toBe("+")
-            expect(STACK.getSecondFromEnd(["5"])).toBe("")
-            expect(STACK.getSecondFromEnd([])).toBe("")
+            expect(StackUtils.getSecondValueFromEnd(["4","+","9"])).toBe("+")
+            expect(StackUtils.getSecondValueFromEnd(["5"])).toBe("")
+            expect(StackUtils.getSecondValueFromEnd([])).toBe("")
         })
     })
 })

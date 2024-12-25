@@ -1,25 +1,24 @@
-import React, {useRef, useEffect} from 'react'
-import * as STACK from "../../Stack/StackMethods"
+import React, { useRef, useEffect } from 'react'
+import * as StackUtils from "../../Stack/StackUtils"
 
-interface screenProp {
-  stack: string[]
+interface ScreenProps {
+  calculatorStack: string[];
 }
 
+const Screen = ({ calculatorStack }: ScreenProps) => {
+  const screenContainerRef = useRef<HTMLDivElement>(null);
 
-const Screen = ({stack}: screenProp) => {
-    const screenRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (screenContainerRef.current) {
+      screenContainerRef.current.scrollLeft = screenContainerRef.current.scrollWidth;
+    }
+  }, [calculatorStack]);
 
-    useEffect(() => {
-      if(screenRef.current){
-        screenRef.current.scrollLeft = screenRef.current.scrollWidth;
-      }
-    }, [stack]);
-
-    return (
-      <div className="screen-numeric-value" ref={screenRef}>
-        {STACK.toString(stack)}
-      </div>
-    )
+  return (
+    <div className="screen-numeric-value" ref={screenContainerRef}>
+      {StackUtils.toString(calculatorStack)}
+    </div>
+  )
 }
 
-export default Screen
+export default Screen;

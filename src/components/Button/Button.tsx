@@ -7,45 +7,41 @@ import { CgMathDivide, CgMathMinus, CgMathPercent, CgMathPlus, CgMathEqual } fro
 import { RxCross2 } from "react-icons/rx"
 import { FiDelete } from "react-icons/fi"
 
-interface ButtonProp{
-    value: string
-    onClick: (value: string) => void
+interface ButtonProps {
+    buttonValue: string
+    onButtonClick: (value: string) => void
 }
 
-/*Button component
-    Assuring that the user see something easily understandable on the interface by converting str keys into icons
+/* Composant Button
+    Ce composant gère l'affichage des boutons avec leurs valeurs et icônes respectives.
 */
-const Button = ({value, onClick}: ButtonProp) => {
+const Button = ({ buttonValue, onButtonClick }: ButtonProps) => {
     const disabledCommands = ["mod"];
 
+    // Mappage des valeurs aux icônes
+    const iconMap: { [key: string]: JSX.Element | string } = {
+        "\u221a": <TbMath />,
+        "\u03c0": <TbMathPi />,
+        "<-": <FiDelete />,
+        "/": <CgMathDivide />,
+        "*": <RxCross2 />,
+        "+": <CgMathPlus />,
+        "-": <CgMathMinus />,
+        "%": <CgMathPercent />,
+        "=": <CgMathEqual />,
+        ".": <BsDot />,
+    };
+
     return (
-        <button className={value === "=" ? "keyboard-button equal" : "keyboard-button"} 
-                onClick={() => onClick(value)} 
-                disabled={disabledCommands.includes(value)}
-                value={value}>
-            {value === "\u221a" 
-                ? <TbMath /> 
-                : value === "\u03c0"
-                ? <TbMathPi />
-                : value === "<-"
-                ? <FiDelete />
-                : value === "/"
-                ? <CgMathDivide />
-                : value === "*"
-                ? <RxCross2 />
-                : value === "+"
-                ? <CgMathPlus />
-                : value === "-"
-                ? <CgMathMinus />
-                : value === "%"
-                ? <CgMathPercent />
-                : value === "="
-                ? <CgMathEqual />
-                : value === "."
-                ? <BsDot />
-                : value}
+        <button
+            className={buttonValue === "=" ? "keyboard-button equal" : "keyboard-button"}
+            onClick={() => onButtonClick(buttonValue)}
+            disabled={disabledCommands.includes(buttonValue)}
+            value={buttonValue}
+        >
+            {iconMap[buttonValue] || buttonValue}
         </button>
-    )
+    );
 }
 
 export default Button;

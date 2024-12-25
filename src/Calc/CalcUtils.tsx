@@ -2,7 +2,16 @@
     Contains all the mathematical logic for the calculation
 */
 
-const operatorList: any[] = [
+//Constants
+const SQUARE_ROOT = "\u221a";
+const PI = "\u03c0";
+
+interface Operator{
+    op: string;
+    priority: number;
+}
+
+const operatorList: Operator[] = [
     {op:"(", priority:0},
     {op:")", priority:0},
     {op:"+", priority:1}, 
@@ -11,39 +20,39 @@ const operatorList: any[] = [
     {op:"/", priority:2},
     {op:"%", priority:2},
     {op:"^", priority:3},
-    {op:"\u221a", priority:3},
-    {op:"\u03c0", priority:3}
+    {op:SQUARE_ROOT, priority:3},
+    {op:PI, priority:3}
 ]
 
 //Check if the infix exp is valid 
-export const isValidInfixExp = (infix: string[]) => {
+export const isValidInfixExpression = (infix: string[]) => {
     let openingCount: number = 0;
     let closingCount: number = 0;
 
     for(let i = 0; i < infix.length; i++){
         if(isOperator(infix[i])){
 
-            if(i === infix.length - 1 && infix[i] !== ")" && infix[i] !== "\u03c0") 
+            if(i === infix.length - 1 && infix[i] !== ")" && infix[i] !== PI) 
             {
-                console.log("ERROR: If the last is an operator , invalid expression")
+                throw new Error("If the last is an operator , invalid expression");
                 return false   //If the last is an operator , invalid expression
             }
 
-            if(i === 0 && infix[i] !== "-" && infix[i] !== "(" && infix[i] !== "\u221a" && infix[i] !== "\u03c0") {
-                console.log("ERROR: First typed is an operator")
+            if(i === 0 && infix[i] !== "-" && infix[i] !== "(" && infix[i] !== SQUARE_ROOT && infix[i] !== PI) {
+                throw new Error("ERROR: First typed is an operator")
                 return false   //If the first is an operator, (except - and ) and sqr ) , invalid
             } 
 
-            if(i !== infix.length -1 && infix[i] !== "\u03c0"){ //infix.length -1 because Not needed to check the last operator because noone else can follow it
-                if(isOperator(infix[i+1]) && infix[i+1] !== "\u221a" && infix[i+1] !== "-" && infix[i+1] !== "(" && infix[i] !== ")" && infix[i+1] !== "\u03c0") {
-                    console.log("ERROR : Two consecutives operators, i = ", i)
+            if(i !== infix.length -1 && infix[i] !== PI){ //infix.length -1 because Not needed to check the last operator because noone else can follow it
+                if(isOperator(infix[i+1]) && infix[i+1] !== SQUARE_ROOT && infix[i+1] !== "-" && infix[i+1] !== "(" && infix[i] !== ")" && infix[i+1] !== PI) {
+                    throw new Error(`ERROR : Two consecutives operators, i = ${i}`);
                     return false //Two consecutive operators
                 }
             }
          }
 
          if(!isOperator(infix[i]) && !isOperand(infix[i])){
-            console.log("ERROR : not an operand not an operator")
+            throw new Error("ERROR : not an operand not an operator")
             return false
          } 
 
@@ -56,7 +65,7 @@ export const isValidInfixExp = (infix: string[]) => {
 }
 
 //Making a prescan and adapting it to be calculated
-export const preScan = (infix_src: string[]): string[] => {
+export const prepareInfixForCalculation = (infix_src: string[]): string[] => {
     console.log("IN VALUE of infix_src : ", infix_src);
     let infix: string[] = [...infix_src];
     console.log("infixLength: ", infix.length);
@@ -70,8 +79,8 @@ export const preScan = (infix_src: string[]): string[] => {
         }
 
         // CASE OF NO * TYPED operator at the left
-        if( infix[i] === "\u03c0" || infix[i] === ")"){
-            if( isOperand(infix[i+1]) || infix[i+1] === "\u03c0" || infix[i+1] === "("){ 
+        if( infix[i] === PI || infix[i] === ")"){
+            if( isOperand(infix[i+1]) || infix[i+1] === PI || infix[i+1] === "("){ 
                 infix.splice(i+1, 0, "*");    //Ajouter après elem : "*"
             }
         }
@@ -91,8 +100,8 @@ export const preScan = (infix_src: string[]): string[] => {
             }
         }
 
-        //Case of using of symbol PI \u03c0
-        if(infix[i] === "\u03c0"){   
+        //Case of using of symbol PI PI
+        if(infix[i] === PI){   
             infix[i] = Math.PI.toString();
         }
     }
@@ -102,10 +111,8 @@ export const preScan = (infix_src: string[]): string[] => {
 
 //convert a infix expression into postfix expression
 export const toPostfix = (infix: string[]): string[] => {
-    //console.log("INFIX : ", infix)
-
     let postfix: string[] = [];
-    let operator: string[] = [];
+    let operatorStack: string[] = [];
 
     for(let i = 0; i < infix.length; i++){
         //When token is an operand
@@ -115,75 +122,74 @@ export const toPostfix = (infix: string[]): string[] => {
         //when token is an operator
         else if(isOperator(infix[i])){
             if(infix[i] === "("){
-                operator.push(infix[i])
+                operatorStack.push(infix[i])
             }
             else if(infix[i] === ")"){
-                while(operator[operator.length-1] !== "("){
-                    let lastOperator: string | undefined = operator.pop()
+                while(operatorStack[operatorStack.length-1] !== "("){
+                    let lastOperator: string | undefined = operatorStack.pop()
                     if(lastOperator !== undefined) postfix.push(lastOperator)
                 }
-                operator.pop()
+                operatorStack.pop()
             }
             else{
-                if(operator.length === 0){
-                    operator.push(infix[i])
+                if(operatorStack.length === 0){
+                    operatorStack.push(infix[i])
                 }
                 else{
-                    while(operator.length > 0 && hasPriorityOn(operator[operator.length-1], infix[i])){
-                        let lastOperator: string | undefined = operator.pop()
+                    while(operatorStack.length > 0 && hasPriorityOn(operatorStack[operatorStack.length-1], infix[i])){
+                        let lastOperator: string | undefined = operatorStack.pop()
                         if(lastOperator !== undefined) postfix.push(lastOperator)
                     }
 
-                    operator.push(infix[i])
+                    operatorStack.push(infix[i])
                 }
             }
         }
     }
 
     //Clear the operator stack at the end
-    while(operator.length > 0){
-        let lastOperator: string | undefined = operator.pop()
+    while(operatorStack.length > 0){
+        let lastOperator: string | undefined = operatorStack.pop()
         if(lastOperator !== undefined) postfix.push(lastOperator)
     }
     
-    //console.log("POSTFIX !", postfix)
     return postfix;
 }
 
 
 //Evaluate a postfix expression and return the result
-export const evalPostfix = (postfix: string[]) => {
+export const evaluatePostfixExpression = (postfix: string[]) => {
     let stack: string[] = []
 
     postfix.forEach( token => {
         if(isOperand(token)) stack.push(token)
         else if(isFunction(token)){
-            let lastNb = stack.pop();
+            let lastValue = stack.pop();
 
-            let lastNm: number;
-            if(lastNb !== undefined){
-                lastNm = parseFloat(lastNb)
+            let lastValueAsNumber: number;
+            if(lastValue !== undefined){
+                lastValueAsNumber = parseFloat(lastValue)
             }
             else throw new Error("Undefined last number")
 
             let result: number = 0;
-            if(token === "\u221a") result = Math.sqrt(lastNm)
+            if(token === SQUARE_ROOT) result = Math.sqrt(lastValueAsNumber)
 
             let result_str: string = result.toString()
             stack.push(result_str)
 
         }
         else if(isOperator(token)){
-            let nb1 = stack.pop()
-            let nb2 = stack.pop()
+            let num1 = stack.pop()
+            let num2 = stack.pop()
 
             let nm1: number;
             let nm2: number;
-            if(nb1 !== undefined && nb2 !== undefined){
-                nm1 = parseFloat(nb1)
-                nm2 = parseFloat(nb2)
+            if(num1 !== undefined && num2 !== undefined){
+                nm1 = parseFloat(num1)
+                nm2 = parseFloat(num2)
             }
-            else throw new Error("Undefined nb1 and/or nb2")
+            else throw new Error("Undefined num1 and/or num2")
 
             let result: number = 0;
             if(token === "+") result = nm1 + nm2;
@@ -192,7 +198,7 @@ export const evalPostfix = (postfix: string[]) => {
             else if(token === "/") result = nm2 / nm1;
             else if(token === "^") result = Math.pow(nm2, nm1)
             else if(token === "%") result = nm2 % nm1;
-            else console.log("ERROR: Unknow operator")        
+            else throw new Error("ERROR: Unknow operator")        
 
             let result_str: string = result.toString()
             stack.push(result_str)
@@ -210,16 +216,13 @@ export const isOperand = (c: string) => {
 
 //Is the character an operator ?
 export const isOperator = (c: string) => {
-    let operator = false
-    operatorList.forEach(op => {
-        if(c === op.op) operator = true
-    })
-    return operator
+    const operatorSet: Set<string> = new Set(operatorList.map(op => op.op));
+    return operatorSet.has(c);
 }
 
 export const isFunction = (c: string) => {
     if(isOperator(c)){
-        if(c === "\u221a" || c === "\u03c0"){
+        if(c === SQUARE_ROOT || c === PI){
             return true;
         }
     }
@@ -228,8 +231,16 @@ export const isFunction = (c: string) => {
 
 //Does op1 have priority on op2 ? 
 export const hasPriorityOn = (op1: string, op2: string) => {
-    if(op1 === undefined) throw new Error("Op1 undefined")
-    if(op2 === undefined) throw new Error("Op2 undefined")
+    if(op1 === undefined) throw new Error("string op1 undefined")
+    if(op2 === undefined) throw new Error("string op2 undefined")
 
-    return operatorList.find(op => op.op === op1).priority > operatorList.find(op => op.op === op2).priority
+
+    const operator1 = operatorList.find(op => op.op === op1);
+    const operator2 = operatorList.find(op => op.op === op2);
+
+    if(operator1 && operator2){
+        return operator1.priority > operator2.priority;
+    }
+
+    throw new Error("One or both operator could not be found")
 }
