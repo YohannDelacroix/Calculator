@@ -34,7 +34,7 @@ export const isValidInfixExpression = (infix: string[]) => {
 
             if(i === infix.length - 1 && infix[i] !== ")" && infix[i] !== PI) 
             {
-                throw new Error("If the last is an operator , invalid expression");
+                throw new Error("ERROR : Last token is an operator");
                 return false   //If the last is an operator , invalid expression
             }
 
@@ -66,9 +66,7 @@ export const isValidInfixExpression = (infix: string[]) => {
 
 //Making a prescan and adapting it to be calculated
 export const prepareInfixForCalculation = (infix_src: string[]): string[] => {
-    console.log("IN VALUE of infix_src : ", infix_src);
     let infix: string[] = [...infix_src];
-    console.log("infixLength: ", infix.length);
 
     for(let i = 0; i < infix.length; i++){	
         // CASE OF NO * TYPED operator at the right
