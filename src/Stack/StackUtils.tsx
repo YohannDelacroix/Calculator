@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 
 //Push a value on top of Stack
 export const pushValuesToStack = (stack: string[], setStack: Dispatch<SetStateAction<string[]>>, value: string[]) => {
-    console.log(value)
+    //console.log(value)
     setStack([...stack, ...value])
 }
 

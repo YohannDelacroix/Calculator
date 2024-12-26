@@ -43,8 +43,14 @@ function App() {
 
     //Evaluate an expression typed by the user
     const evaluateExpression = () => {
-      let valid: boolean = CalcUtils.isValidInfixExpression(stackState.stack)
+      let valid: boolean = false;
 
+      try{
+        valid = CalcUtils.isValidInfixExpression(stackState.stack)
+      }catch(error){
+        console.error(error);
+      }
+      
       if(!valid) {
         dispatchStack({type: stackActionType.CLEAR, tokens: []})
         dispatchStack({type: stackActionType.ADD_TO_STACK, tokens: ["ERROR"]})

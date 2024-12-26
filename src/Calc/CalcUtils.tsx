@@ -34,25 +34,25 @@ export const isValidInfixExpression = (infix: string[]) => {
 
             if(i === infix.length - 1 && infix[i] !== ")" && infix[i] !== PI) 
             {
-                throw new Error("ERROR : Last token is an operator");
+                throw new Error("Last token is an operator");
                 return false   //If the last is an operator , invalid expression
             }
 
             if(i === 0 && infix[i] !== "-" && infix[i] !== "(" && infix[i] !== SQUARE_ROOT && infix[i] !== PI) {
-                throw new Error("ERROR: First typed is an operator")
+                throw new Error("First typed is an operator")
                 return false   //If the first is an operator, (except - and ) and sqr ) , invalid
             } 
 
             if(i !== infix.length -1 && infix[i] !== PI){ //infix.length -1 because Not needed to check the last operator because noone else can follow it
                 if(isOperator(infix[i+1]) && infix[i+1] !== SQUARE_ROOT && infix[i+1] !== "-" && infix[i+1] !== "(" && infix[i] !== ")" && infix[i+1] !== PI) {
-                    throw new Error(`ERROR : Two consecutives operators, i = ${i}`);
+                    throw new Error(`Two consecutives operators, i = ${i}`);
                     return false //Two consecutive operators
                 }
             }
          }
 
          if(!isOperator(infix[i]) && !isOperand(infix[i])){
-            throw new Error("ERROR : not an operand not an operator")
+            throw new Error("Not an operand nor an operator")
             return false
          } 
 

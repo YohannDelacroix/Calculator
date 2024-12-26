@@ -152,12 +152,20 @@ describe("Testing infix-postfix methods", () => {
 
     })
 
-    it("should reject an invalid expression", () => {
-        let infix1: string[] = ["5","+","4","+"]
-        expect(isValidInfixExpression(infix1)).toBeFalsy()
-        expect(isValidInfixExpression( ["*","5","+","3"] )).toBeFalsy()
-        //expect(isValidInfixExpression(["(", "(", "5","+","3",")"])).toBeFalsy()
-        //expect(isValidInfixExpression(["ERROR56"])).toBeFalsy()
+    describe("should reject an invalid expression", () => {
+        it("should reject when expression ends with an operator", () => {
+            let infix1: string[] = ["5","+","4","+"];
+            expect(() => isValidInfixExpression(infix1)).toThrow();
+        })
+        it("should reject when expression starts with an operator", () => {
+            expect(() => isValidInfixExpression( ["*","5","+","3"] )).toThrow();
+        })
+        it("should reject when miss a parenthese on end", () => {
+            expect(isValidInfixExpression(["(", "(", "5","+","3",")"])).toBeFalsy();
+        })
+        it("should reject when the user types on error message", () => {
+            expect(() => isValidInfixExpression(["ERROR","5", "6"])).toThrow()
+        })
     })
 
     it("should accept a valid expression", () => {
