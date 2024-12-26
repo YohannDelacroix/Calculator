@@ -4,7 +4,7 @@ import Screen from './components/Screen/Screen';
 import Button from './components/Button/Button';
 import * as StackUtils from "./Stack/StackUtils"
 import * as CalcUtils from "./Calc/CalcUtils"
-import { StackReducer, stackActionKind } from './Stack/StackReducer';
+import { StackReducer, stackActionType } from './Stack/StackReducer';
 
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
       "0",".","%","/"
     ]
 
+    //Initializing stack with empty array 
     const [stackState, dispatchStack] = useReducer(StackReducer, { stack: []})
 
     useEffect( () => {
@@ -24,31 +25,31 @@ function App() {
 
 
     //Given a character typed by the user, add this character to the stack
-    const pushToStack = (value: string): void => {
-      if(CalcUtils.isOperand(value)){
+    const pushToStack = (token: string): void => {
+      if(CalcUtils.isOperand(token)){
         if(stackState.stack.length === 0 || CalcUtils.isOperator(StackUtils.getLastIn(stackState.stack))){
-          dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: [value]})
+          dispatchStack({type: stackActionType.ADD_TO_STACK, tokens: [token]})
         }
         else{ //The last in stack is an operand
-          let completeValue = StackUtils.getLastIn(stackState.stack) + value
-          dispatchStack({type: stackActionKind.REMOVE_FROM_STACK, payload: [StackUtils.getLastIn(stackState.stack)]})
-          dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: [completeValue]})
+          let completeValue = StackUtils.getLastIn(stackState.stack) + token
+          dispatchStack({type: stackActionType.REMOVE_FROM_STACK, tokens: [StackUtils.getLastIn(stackState.stack)]})
+          dispatchStack({type: stackActionType.ADD_TO_STACK, tokens: [completeValue]})
         } 
       }
-      else if(CalcUtils.isOperator(value)){
-        dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: [value]})
+      else if(CalcUtils.isOperator(token)){
+        dispatchStack({type: stackActionType.ADD_TO_STACK, tokens: [token]})
       }
     }
 
     //Evaluate an expression typed by the user
     const evaluateExpression = () => {
       let valid: boolean = CalcUtils.isValidInfixExpression(stackState.stack)
-      //console.log("is VALID EXP ?", valid)
+
       if(!valid) {
-        dispatchStack({type: stackActionKind.EMPTY, payload: []})
-        dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: ["ERROR"]})
+        dispatchStack({type: stackActionType.CLEAR, tokens: []})
+        dispatchStack({type: stackActionType.ADD_TO_STACK, tokens: ["ERROR"]})
       }
-      else dispatchStack({type: stackActionKind.EVALUATE, payload: []})
+      else dispatchStack({type: stackActionType.EVALUATE, tokens: []})
     }
 
     //Back button, delete 1 character exactly
@@ -60,19 +61,19 @@ function App() {
         console.error("Nothing to delete")
         return
       }
-      dispatchStack({type: stackActionKind.EMPTY, payload: []})
+      dispatchStack({type: stackActionType.CLEAR, tokens: []})
       
       if(last.length > 1){
-        dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: [...newStack, last.substring(0, last.length-1)]})
+        dispatchStack({type: stackActionType.ADD_TO_STACK, tokens: [...newStack, last.substring(0, last.length-1)]})
       }
       else{
-        dispatchStack({type: stackActionKind.ADD_TO_STACK, payload: [...newStack]})
+        dispatchStack({type: stackActionType.ADD_TO_STACK, tokens: [...newStack]})
       }
     }
 
     //AC button - reset the stack
     const resetStack = () => {
-      dispatchStack({type: stackActionKind.EMPTY, payload: []})
+      dispatchStack({type: stackActionType.CLEAR, tokens: []})
     }
 
     return (
@@ -80,7 +81,7 @@ function App() {
           <header><p>CALCULATOR</p></header>
           <section className="calculator">
             <section className="screen">
-            <Screen calculatorStack={stackState.stack} />
+              <Screen calculatorStack={stackState.stack} />
             </section>
             <section className="keyboard">
               {

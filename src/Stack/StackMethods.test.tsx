@@ -4,7 +4,6 @@ import { fireEvent, getByTestId, render, screen, cleanup, waitFor } from "@testi
 import * as StackUtils from "./StackUtils";
 
 describe('TESTING STACK PROVIDER -------------------------------------- ', () => {
-
     const TestComponent = () => {
         const {operandStack, setOperandStack, operatorStack, setOperatorStack} = useStackContext();
 
@@ -13,8 +12,6 @@ describe('TESTING STACK PROVIDER -------------------------------------- ', () =>
             StackUtils.pushValuesToStack(operatorStack, setOperatorStack, ["+"])
         }, [])
 
-
-        
         // TESTING POP OPERATOR STACK
         const [testPopOperator, setTestPopOperator] = useState(false)
         const popOperator = () => {

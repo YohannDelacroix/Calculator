@@ -1,17 +1,18 @@
 import { evaluatePostfixExpression, prepareInfixForCalculation, toPostfix } from "../Calc/CalcUtils";
 import * as StackUtils from "./StackUtils"
 
-export enum stackActionKind {
-    ADD_TO_STACK = 'ADD_TO_STACK',
-    REMOVE_FROM_STACK = 'REMOVE_FROM_STACK',
-    EMPTY = 'EMPTY',
-    EVALUATE = 'EVALUATE',
-    BACK = 'BACK'
+
+//enum stackActionType contains all the possibles types we can find in the app 
+export enum stackActionType {
+    ADD_TO_STACK = 'ADD_TO_STACK',                  
+    REMOVE_FROM_STACK = 'REMOVE_FROM_STACK',        
+    CLEAR = 'CLEAR',   
+    EVALUATE = 'EVALUATE'
 }
 
 interface stackAction{
-    type: stackActionKind;
-    payload: string[]
+    type: stackActionType;
+    tokens: string[]
 }
 
 interface stackState{
@@ -19,18 +20,18 @@ interface stackState{
 }
 
 export const StackReducer = (state: stackState, action: stackAction) => {
-    const { type, payload } = action
+    const { type, tokens } = action
     switch(type){
-        case stackActionKind.ADD_TO_STACK:
-            return {...state, stack: [...state.stack, ...payload]}
-        case stackActionKind.REMOVE_FROM_STACK:
-            let lastItemInStack: string = payload[0];
+        case stackActionType.ADD_TO_STACK:
+            return {...state, stack: [...state.stack, ...tokens]}
+        case stackActionType.REMOVE_FROM_STACK:
+            let lastItemInStack: string = tokens[0];
             if(StackUtils.getLastIn(state.stack) === lastItemInStack)
             state.stack.pop()
             return {...state, stack: [...state.stack]}
-        case stackActionKind.EMPTY:
+        case stackActionType.CLEAR:
             return {...state, stack: []}
-        case stackActionKind.EVALUATE:
+        case stackActionType.EVALUATE:
             let infixScanned: string[] = prepareInfixForCalculation(state.stack)
             let postfix: string[] = toPostfix(infixScanned)
             let result: string = evaluatePostfixExpression(postfix)
