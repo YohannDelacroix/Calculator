@@ -15,7 +15,7 @@ const Screen = ({ calculatorStack }: ScreenProps) => {
   }, [calculatorStack]);
 
   return (
-    <div className="screen-numeric-value" ref={screenContainerRef}>
+    <div className="screen-numeric-value" ref={screenContainerRef} data-testid="screen">
       {StackUtils.toString(calculatorStack)}
     </div>
   )

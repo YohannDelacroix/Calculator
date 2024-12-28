@@ -38,6 +38,7 @@ const Button = ({ buttonValue, onButtonClick }: ButtonProps) => {
             onClick={() => onButtonClick(buttonValue)}
             disabled={disabledCommands.includes(buttonValue)}
             value={buttonValue}
+            data-testid={`button-${buttonValue}`}
         >
             {iconMap[buttonValue] || buttonValue}
         </button>

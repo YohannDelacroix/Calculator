@@ -20,7 +20,7 @@ function App() {
     const [stackState, dispatchStack] = useReducer(StackReducer, { stack: []})
 
     useEffect( () => {
-      console.log("Stack: ", stackState.stack);
+      //console.log("Stack: ", stackState.stack);
     }, [stackState])
 
 
