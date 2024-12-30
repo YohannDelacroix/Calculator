@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from 'react';
-import * as StackUtils from "../CalculatorStack/StackUtils"
-import * as CalcUtils from "../Calc/CalcUtils"
-import { StackReducer, stackActionType } from '../CalculatorStack/StackReducer';
+import * as StackUtils from "../utils/calculatorStack/StackUtils"
+import * as CalcUtils from "../utils/calc/CalcUtils"
+import { StackReducer, stackActionType } from '../utils/calculatorStack/StackReducer';
 
 
 export const useCalculator = () => {

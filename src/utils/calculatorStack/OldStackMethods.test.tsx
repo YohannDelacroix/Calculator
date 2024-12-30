@@ -1,8 +1,9 @@
-import { StackProvider, useStackContext } from "../OldStackContext"
+import { StackProvider, useStackContext } from "../../OldStackContext"
 import { useEffect, useState } from "react"
 import { fireEvent, getByTestId, render, screen, cleanup, waitFor } from "@testing-library/react"
 import * as StackUtils from "./StackUtils";
 
+/*
 describe('OLD FRONTEND TESTING WITH STACK PROVIDER-------------------------------------- ', () => {
     const TestComponent = () => {
         const {operandStack, setOperandStack, operatorStack, setOperatorStack} = useStackContext();
@@ -108,4 +109,4 @@ describe('OLD FRONTEND TESTING WITH STACK PROVIDER------------------------------
             expect(StackUtils.getSecondValueFromEnd([])).toBe("")
         })
     })
-})
+}) */

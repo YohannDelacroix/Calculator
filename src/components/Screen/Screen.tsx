@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import * as StackUtils from "../../CalculatorStack/StackUtils"
+import * as StackUtils from "../../utils/calculatorStack/StackUtils"
 
 interface ScreenProps {
   calculatorStack: string[];

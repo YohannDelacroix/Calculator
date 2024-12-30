@@ -1,4 +1,4 @@
-import { evaluatePostfixExpression, prepareInfixForCalculation, toPostfix } from "../Calc/CalcUtils";
+import { evaluatePostfixExpression, prepareInfixForCalculation, toPostfix } from "../calc/CalcUtils";
 import * as StackUtils from "./StackUtils"
 
 
