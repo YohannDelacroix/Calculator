@@ -1,5 +1,7 @@
-24/12/2024
+30/12/2024
     Générer les compatibilités navigateurs pour le CSS
+    Terminer les tests du hook useCalculator
+
 
 
 console.log("\u03c0")

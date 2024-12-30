@@ -10,6 +10,13 @@ describe("Testing StackReducer", () => {
         expect(newState).toEqual({ stack: ["1", "2"] });
     });
 
+    it("should replace stack by the new stack on REPLACE_STACK", () => {
+        const initialState = { stack: ["53"] };
+        const action = { type: stackActionType.REPLACE_STACK, tokens: ["534"] };
+        const newState = StackReducer(initialState, action);
+        expect(newState).toEqual({ stack: ["534"] });
+    });
+
     it("should remove the last token from the stack on REMOVE_FROM_STACK", () => {
         const initialState = { stack: ["1", "2"] };
         const action = { type: stackActionType.REMOVE_FROM_STACK, tokens: ["2"] };

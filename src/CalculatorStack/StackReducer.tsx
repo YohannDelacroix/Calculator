@@ -4,7 +4,8 @@ import * as StackUtils from "./StackUtils"
 
 //enum stackActionType contains all the possibles types we can find in the app 
 export enum stackActionType {
-    ADD_TO_STACK = 'ADD_TO_STACK',                  
+    ADD_TO_STACK = 'ADD_TO_STACK',         
+    REPLACE_STACK = 'REPLACE_STACK',         
     REMOVE_FROM_STACK = 'REMOVE_FROM_STACK',        
     CLEAR = 'CLEAR',   
     EVALUATE = 'EVALUATE'
@@ -24,6 +25,8 @@ export const StackReducer = (state: stackState, action: stackAction) => {
     switch(type){
         case stackActionType.ADD_TO_STACK:
             return {...state, stack: [...state.stack, ...tokens]}
+        case stackActionType.REPLACE_STACK:
+            return {...state, stack:[...tokens]};
         case stackActionType.REMOVE_FROM_STACK:
             let lastItemInStack: string = tokens[0];
             if(StackUtils.getLastIn(state.stack) === lastItemInStack)
