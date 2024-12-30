@@ -1,7 +1,7 @@
 import React from "react";
 import { render, act } from "@testing-library/react";
-import { useCalculator } from "../hooks/useCalculator";
-import TestComponent from "./TestComponent";
+import { useCalculator } from "./useCalculator";
+import TestComponent from "../tests/TestComponent";
 
 describe("useCalculator Tests", () => {
     it("should initialize the stack with an empty array", () => {
