@@ -31,10 +31,10 @@ describe("Testing StackReducer", () => {
         expect(newState).toEqual({ stack: [] });
     });
 
-    it.skip("should evaluate the stack on EVALUATE", () => {
+    it("should evaluate the stack on EVALUATE", () => {
         const initialState = { stack: ["2", "+", "3"] };
         // Mock functions used in evaluate
-        jest.mock("../Calc/CalcUtils", () => ({
+        jest.mock("../calc/CalcUtils", () => ({
             prepareInfixForCalculation: jest.fn(() => ["2", "+", "3"]),
             toPostfix: jest.fn(() => ["2", "3", "+"]),
             evaluatePostfixExpression: jest.fn(() => "5"),
