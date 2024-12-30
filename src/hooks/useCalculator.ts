@@ -5,7 +5,7 @@ import { StackReducer, stackActionType } from '../utils/calculatorStack/StackRed
 
 
 export const useCalculator = () => {
-    //Initializing stack with empty array 
+        //Initializing stack with empty array 
         const [stackState, dispatchStack] = useReducer(StackReducer, { stack: []})
     
         useEffect( () => {
