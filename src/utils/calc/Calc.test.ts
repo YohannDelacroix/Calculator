@@ -179,6 +179,9 @@ describe("Testing infix-postfix methods", () => {
         it("should reject when three consecutives minus operators are typed", () => {
             expect(() => isValidInfixExpression(["9","-","-","-","9"])).toThrow()
         })
+        it("should reject when a decimal token follows a PI symbol", () => {
+            expect(() => isValidInfixExpression([PI,".","3"])).toThrow()
+        })
     })
 
     it("should accept a valid expression", () => {

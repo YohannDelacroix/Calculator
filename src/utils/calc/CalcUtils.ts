@@ -30,12 +30,8 @@ export const isValidInfixExpression = (infix: string[]) => {
     let closingCount: number = 0;
 
     for(let i = 0; i < infix.length; i++){
-        //First checking if the token is an operand, to avoid useless checking
-        if(isOperand(infix[i])){
-            
-        }
-        else
-        {
+        //First checking if the token is an operator, to avoid useless checking with operands
+        if(isOperator(infix[i])){
             if(i === infix.length - 1 && infix[i] !== ")" && infix[i] !== PI) 
             {
                 //If the last token is an operator, that is not a closing parenthesis or a PI symbol, throw an error
@@ -54,10 +50,14 @@ export const isValidInfixExpression = (infix: string[]) => {
                 }
             }
 
-            
             if(isOperatorAMinus(infix[i+1]) && isOperatorAMinus(infix[i+2])){
-                //Three consecutives minus operators should create an error
+                //Three consecutives minus operators should throw an error
                 throw new Error("Three consecutives minus are not allowed");
+            }
+
+            if(infix[i] === PI && infix[i+1].charAt(0) === "."){
+                //Typing something like "PI.3" must throw an error
+                throw new Error("It's not allowed to combine decimals with PI symbol")
             }
          }
 

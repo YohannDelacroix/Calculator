@@ -8,6 +8,8 @@ export const useCalculator = () => {
         //Initializing stack with empty array 
         const [stackState, dispatchStack] = useReducer(StackReducer, { stack: []})
     
+
+        //Used for debug
         useEffect( () => {
           //console.log("Stack: ", stackState.stack);
         }, [stackState])
