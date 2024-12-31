@@ -1,5 +1,5 @@
 import exp from "constants"
-import { toPostfix, isOperand, isFunction, isOperator, hasPriorityOn, evaluatePostfixExpression, isValidInfixExpression, prepareInfixForCalculation } from "./CalcUtils"
+import { toPostfix, isOperand, isFunction, isOperator, hasPriorityOn, evaluatePostfixExpression, isValidInfixExpression, prepareInfixForCalculation, isOperatorAMinus } from "./CalcUtils"
 import { textSpanContainsPosition } from "typescript"
 
 describe("Testing infix-postfix methods", () => {
@@ -44,6 +44,16 @@ describe("Testing infix-postfix methods", () => {
         expect(isOperator("5")).not.toBeTruthy()
         expect(isOperator("0")).not.toBeTruthy()
         expect(isOperator("8")).not.toBeTruthy()
+    })
+
+    test("isOperatorAMinus should return true", () => {
+        let minus: string = "-";
+        expect(isOperatorAMinus(minus)).toBeTruthy();
+    })
+
+    test("isOperatorAMinus should return false", () => {
+        let token: string = "+";
+        expect(isOperatorAMinus(token)).not.toBeTruthy();
     })
 
     test("isFunction should return true", () => {
@@ -165,6 +175,9 @@ describe("Testing infix-postfix methods", () => {
         })
         it("should reject when the user types on error message", () => {
             expect(() => isValidInfixExpression(["ERROR","5", "6"])).toThrow()
+        })
+        it("should reject when three consecutives minus operators are typed", () => {
+            expect(() => isValidInfixExpression(["9","-","-","-","9"])).toThrow()
         })
     })
 
