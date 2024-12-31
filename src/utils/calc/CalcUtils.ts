@@ -1,16 +1,51 @@
-/* Calc.tsx 
-    Contains all the mathematical logic for the calculation
-*/
+/**
+ * CalcUtils.tsx
+ *
+ * This file contains utility functions and constants for mathematical expression parsing, validation, 
+ * and evaluation. These functions are designed to handle operations such as:
+ * - Converting infix expressions to postfix.
+ * - Evaluating postfix expressions.
+ * - Validating the syntax of infix expressions.
+ * - Preprocessing infix expressions for proper evaluation.
+ * - Managing mathematical operators and their priorities.
+ * - Defining constants such as square root (√) and π (pi).
+ *
+ * Author: Yohann Delacroix
+ * Date: December 31, 2024
+ */
 
-//Constants
+//Constants 
 const SQUARE_ROOT = "\u221a";
 const PI = "\u03c0";
 
+/**
+ * Interface representing an operator.
+ * @property {string} op - The symbol of the operator (e.g., "+", "-", "*", "(").
+ * @property {number} priority - The precedence level of the operator.
+ * Operators with higher priority values are evaluated first in expressions.
+ */
 interface Operator{
     op: string;
     priority: number;
 }
 
+
+/**
+ * List of supported operators and their precedence levels.
+ *
+ * This array defines the operators that can be used in expressions, 
+ * along with their associated priority. The priority is used to determine
+ * the order of operations during expression evaluation.
+ *
+ * Priority levels:
+ * - 0: Parentheses ("(" and ")") are used for grouping and do not have intrinsic priority.
+ * - 1: Low-precedence operators like addition ("+") and subtraction ("-").
+ * - 2: Medium-precedence operators like multiplication ("*"), division ("/"), and modulo ("%").
+ * - 3: High-precedence operators like exponentiation ("^") and square root.
+ * 
+ * Note:
+ * - The special constants `SQUARE_ROOT` and `PI` are treated as operators for simplicity.
+ */
 const operatorList: Operator[] = [
     {op:"(", priority:0},
     {op:")", priority:0},
@@ -24,15 +59,33 @@ const operatorList: Operator[] = [
     {op:PI, priority:3}
 ]
 
-//Check if the infix exp is valid 
+/**
+ * Validates the syntax of an infix expression.
+ *
+ * This function checks whether the given infix expression is syntactically valid.
+ * It ensures that operators, operands, parentheses, and special symbols (e.g., PI) 
+ * are arranged correctly and that no invalid combinations occur.
+ *
+ * @param {string[]} infix - The infix expression to validate, represented as an array of strings.
+ * Each string corresponds to an operator, operand, parenthesis or function
+ * @returns {boolean} Returns `true` if the infix expression is valid.
+ * @throws {Error} Throws an error if the expression contains:
+ * - Consecutive or misplaced operators.
+ * - Unbalanced parentheses.
+ * - Invalid tokens.
+ * - Incorrect use of the PI symbol or decimal points.
+ * - Other syntactic errors.
+ */
 export const isValidInfixExpression = (infix: string[]) => {
-    let openingCount: number = 0;
-    let closingCount: number = 0;
+    let openingCount: number = 0; // Tracks the number of opening parentheses.
+    let closingCount: number = 0; // Tracks the number of closing parentheses.
 
     for(let i = 0; i < infix.length; i++){
         //First checking if the token is an operator, to avoid useless checking with operands
         if(isOperator(infix[i])){
-            if(i === infix.length - 1 && infix[i] !== ")" && infix[i] !== PI) 
+            const lastIndex: number = infix.length - 1;
+            
+            if(i === lastIndex && infix[i] !== ")" && infix[i] !== PI) 
             {
                 //If the last token is an operator, that is not a closing parenthesis or a PI symbol, throw an error
                 throw new Error("Last token is an operator");
@@ -43,10 +96,17 @@ export const isValidInfixExpression = (infix: string[]) => {
                 throw new Error("First token typed is an operator")
             } 
 
-            if(i !== infix.length -1 && infix[i] !== PI){ //infix.length -1 because Not needed to check the last operator because no one else can follow it
-                if(isOperator(infix[i+1]) && infix[i+1] !== SQUARE_ROOT && infix[i+1] !== "-" && infix[i+1] !== "(" && infix[i] !== ")" && infix[i+1] !== PI) {
+            if(i !== lastIndex && infix[i] !== PI){ //Prevent out of range error caused by i+1, and PI should not be considered in the consecutives operators
+                if (
+                    isOperator(infix[i + 1]) &&
+                    infix[i + 1] !== SQUARE_ROOT &&
+                    infix[i + 1] !== "-" &&     //Allow substractions with negative numbers 9 - -8
+                    infix[i + 1] !== "(" &&
+                    infix[i] !== ")" &&
+                    infix[i + 1] !== PI
+                ) {
+                    //Ensure no two consecutive operators
                     throw new Error(`Two consecutives operators, i = ${i}`);
-                    //Two consecutive operators or more
                 }
             }
 
@@ -55,21 +115,27 @@ export const isValidInfixExpression = (infix: string[]) => {
                 throw new Error("Three consecutives minus are not allowed");
             }
 
-            if(infix[i] === PI && infix[i+1].charAt(0) === "."){
-                //Typing something like "PI.3" must throw an error
-                throw new Error("It's not allowed to combine decimals with PI symbol")
+            if(i !== lastIndex){ //Prevent out of range error if PI is the last token of the stack
+                if(infix[i] === PI && infix[i+1].charAt(0) === "."){
+                    //Typing something like "PI.3" must throw an error
+                    throw new Error("It's not allowed to combine decimals with PI symbol")
+                }
             }
+            
+            //Count opening and closing parenthesis
+            if(infix[i] === "(") openingCount += 1
+            if(infix[i] === ")") closingCount += 1
          }
 
+         //Handle invalid tokens (neither operand nor operator)
          if(!isOperator(infix[i]) && !isOperand(infix[i])){
             throw new Error("Not an operand nor an operator")
          } 
-
-         if(infix[i] === "(") openingCount += 1
-         if(infix[i] === ")") closingCount += 1
     }
 
-    if(openingCount !== closingCount) return false //Parenthesis not correctly opened and/or closed
+    if(openingCount !== closingCount) throw new Error("The number of opening parenthesis and the closing parenthesis does not equal") //Parenthesis not correctly opened and/or closed
+
+    // If all checks pass, the infix expression is valid.
     return true
 }
 

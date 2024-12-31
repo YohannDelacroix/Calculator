@@ -171,7 +171,7 @@ describe("Testing infix-postfix methods", () => {
             expect(() => isValidInfixExpression( ["*","5","+","3"] )).toThrow();
         })
         it("should reject when miss a parenthese on end", () => {
-            expect(isValidInfixExpression(["(", "(", "5","+","3",")"])).toBeFalsy();
+            expect(() => isValidInfixExpression(["(", "(", "5","+","3",")"])).toThrow();
         })
         it("should reject when the user types on error message", () => {
             expect(() => isValidInfixExpression(["ERROR","5", "6"])).toThrow()
@@ -192,5 +192,4 @@ describe("Testing infix-postfix methods", () => {
         expect(isValidInfixExpression(["3","*",SQUARE_ROOT,"(","4","+","5",")"])).toBeTruthy()
         expect(isValidInfixExpression([SQUARE_ROOT,"9"])).toBeTruthy()
     })
-    
 })
