@@ -58,17 +58,23 @@ Make sure you have **Node.js** and **npm** installed on your machine. If not, yo
 Here’s an overview of the project structure with a description of each important file/folder:
 
     /src
-        /Calc                          # Typescript function for the calculations
+        /assets                        # Containing added font style
         /components
             /Button/Button.tsx         # Component for each button on the calculator
             /Screen/Screen.tsx         # Component for displaying the calculation screen
-        /Stack                         # Typescript functions and testing for stack gestion
-            StackMethods.tsx
-            StackReducer.tsx            
+        /hooks                          
+            useCalculator.ts           #useCalculator hook and its related test
+        /tests                         #Contains component test for front-end testing
+        /utils                         
+            /calc                      # Typescript functions and test for managing the calculations
+                calcUtils.ts
+            /calculatorStack           # Typescript utilities functions, reducer and its related tests for managing state
+                StackMethods.ts
+                StackReducer.ts            
         App.css                        # Main styling for the app
         App.tsx                        # Main component that contains the app's logic
-        index.tsx               #  Entry point of the app
-    /public                     # React Build of the application
+        index.tsx                      #  Entry point of the app
+    /public                            # React Build of the application
 
 
 ### Authors

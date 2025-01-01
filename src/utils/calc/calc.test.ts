@@ -1,5 +1,5 @@
 import exp from "constants"
-import { toPostfix, isOperand, isFunction, isOperator, hasPriorityOn, evaluatePostfixExpression, isValidInfixExpression, prepareInfixForCalculation, isOperatorAMinus } from "./CalcUtils"
+import { toPostfix, isOperand, isFunction, isOperator, hasPriorityOn, evaluatePostfixExpression, isValidInfixExpression, prepareInfixForCalculation, isOperatorAMinus } from "./calcUtils"
 import { textSpanContainsPosition } from "typescript"
 
 describe("Testing infix-postfix methods", () => {

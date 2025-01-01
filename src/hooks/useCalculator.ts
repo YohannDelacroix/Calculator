@@ -20,14 +20,14 @@
  */
 
 import { useEffect, useReducer } from 'react';
-import * as StackUtils from "../utils/calculatorStack/StackUtils"
-import * as CalcUtils from "../utils/calc/CalcUtils"
-import { StackReducer, stackActionType } from '../utils/calculatorStack/StackReducer';
+import * as StackUtils from "../utils/calculatorStack/stackUtils"
+import * as CalcUtils from "../utils/calc/calcUtils"
+import { stackReducer, stackActionType } from '../utils/calculatorStack/stackReducer';
 
 
 export const useCalculator = () => {
         //Initializing stack with empty array 
-        const [stackState, dispatchStack] = useReducer(StackReducer, { stack: []})
+        const [stackState, dispatchStack] = useReducer(stackReducer, { stack: []})
     
         /**
          * Adds a token to the stack.

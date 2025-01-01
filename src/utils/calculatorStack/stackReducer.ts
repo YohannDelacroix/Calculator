@@ -19,8 +19,8 @@
  * @date 01-01-2025
  */
 
-import { evaluatePostfixExpression, prepareInfixForCalculation, toPostfix } from "../calc/CalcUtils";
-import * as StackUtils from "./StackUtils"
+import { evaluatePostfixExpression, prepareInfixForCalculation, toPostfix } from "../calc/calcUtils";
+import * as StackUtils from "./stackUtils"
 
 
 /**
@@ -73,7 +73,7 @@ interface stackState{
  * @returns {stackState} - A new state object with the updated stack based on the action type.
  * 
  */
-export const StackReducer = (state: stackState, action: stackAction) => {
+export const stackReducer = (state: stackState, action: stackAction) => {
     const { type, tokens } = action
     switch(type){
         case stackActionType.ADD_TO_STACK:
