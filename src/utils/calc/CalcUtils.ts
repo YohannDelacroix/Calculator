@@ -265,6 +265,10 @@ export const toPostfix = (infix: string[]): string[] => {
     return postfix;
 }
 
+//Rounding results to ensure decimal numbers are exact
+const roundResult = (value: number, decimals: number = 10): number => {
+    return parseFloat(value.toFixed(decimals));
+};
 
 /**
  * Algorithm evaluating a postfix expression and returns the result.
@@ -309,11 +313,11 @@ export const evaluatePostfixExpression = (postfix: string[]) => {
 
             let result: number = 0;
             if(token === "+") result = nm1 + nm2;
-            else if(token === "-") result = nm2 - nm1;
-            else if(token === "*") result = nm2 * nm1;
-            else if(token === "/") result = nm2 / nm1;
-            else if(token === "^") result = Math.pow(nm2, nm1)
-            else if(token === "%") result = nm2 % nm1;
+            else if(token === "-") result = roundResult(nm2 - nm1);
+            else if(token === "*") result = roundResult(nm2 * nm1);
+            else if(token === "/") result = roundResult(nm2 / nm1);
+            else if(token === "^") result = roundResult(Math.pow(nm2, nm1));
+            else if(token === "%") result = roundResult(nm2 % nm1);
             else throw new Error("ERROR: Unknow operator")        
 
             let result_str: string = result.toString()
