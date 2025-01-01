@@ -1,8 +1,12 @@
-//Get the second value from the beginning of the end to the left
-export const getSecondValueFromEnd = (stack: string[]) => {
-    if(stack.length < 2) return ""
-    return stack[stack.length-2]
-}
+/**
+ * StackUtils.tsx
+ *
+ * Utility functions to facilitate operations on stacks
+ *
+ * Author: Yohann Delacroix
+ * Date: 2024-01-25
+ *
+ */
 
 //Get the last in stack
 export const getLastIn = (stack: string[]) => {
